@@ -18,24 +18,19 @@
 
 ## Firewall
 
-### Security
+### Security & System Administration
 - Firewall enabled (NixOS)
+- Trusted interfaces: tailscale0
 - SSH PermitRootLogin: no
 - SSH password auth: false
 
-### Networking & Remote Access
-- Allow TCP: 22 (SSH access)
-- Trusted interfaces: tailscale0 (Secure VPN networking)
+### Remote Access & Development
+- Allow TCP: 22, 42000
 
-### Application Specific
-- Allow TCP: 42000 (Custom application/service port)
-
-### Productivity & Interoperability
-- Allow UDP ranges: UDP 1714-1764 (KDE Connect for device integration)
+### Productivity & Device Integration
+- Allow UDP ranges: UDP 1714-1764 (KDE Connect)
 
 ## System Packages
-
-Here's a categorization of the NixOS system packages:
 
 ### Development
 -   gcc
@@ -55,29 +50,30 @@ Here's a categorization of the NixOS system packages:
 -   cargo
 -   lua
 
-### Productivity
+### Terminal Tools & Emulators
+-   kitty
+-   fzf
+-   tmux
+-   bat
+-   zimfw
+-   pokemon-colorscripts
+-   Terminal
+
+### Desktop Utilities & Productivity
 -   gpaste
 -   ulauncher
 -   bitwarden-desktop
 
-### Utilities & Terminal Tools
+### Networking Tools
 -   wget
--   kitty
--   fastfetch
--   fzf
--   tmux
 -   curl
--   btop
--   bat
--   zimfw
 -   gemini-cli
 
-### Fun & Aesthetics
--   pokemon-colorscripts
+### System Monitoring & Info
+-   fastfetch
+-   btop
 
 ## Flatpaks
-
-Here are the Flatpak applications categorized into logical groups:
 
 ### Internet & Communication
 - app.zen_browser.zen
@@ -85,50 +81,52 @@ Here are the Flatpak applications categorized into logical groups:
 - us.zoom.Zoom
 - com.slack.Slack
 
-### Gaming
-- com.usebottles.bottles
-- io.mrarm.mcpelauncher
-- com.mojang.Minecraft
-- com.pokemmo.PokeMMO
-- com.atlauncher.ATLauncher
-- io.github.Foldex.AdwSteamGtk
-
 ### Utilities & System Tools
 - org.kde.filelight
 - org.vinegarhq.Sober
+- com.usebottles.bottles
 - com.github.tchx84.Flatseal
+- io.gitlab.adhami3310.Impression
 - org.gnome.Extensions
 - io.github.pwr_solaar.solaar
 - org.x.Warpinator
 - io.github.giantpinkrobots.flatsweep
 - io.github.realmazharhussain.GdmSettings
 
-### Multimedia
+### Multimedia & Graphics
 - org.gimp.GIMP
-- io.gitlab.adhami3310.Impression
 - io.github.mhogomchungu.media-downloader
 - com.obsproject.Studio
-- io.github.qwersyk.Newelle
 
-### Productivity
+### Games & Gaming Utilities
+- io.mrarm.mcpelauncher
+- com.mojang.Minecraft
+- com.pokemmo.PokeMMO
+- com.atlauncher.ATLauncher
+- io.github.Foldex.AdwSteamGtk
+
+### Productivity & Readers
 - org.gnome.Todo
+- io.github.qwersyk.Newelle
 
 ## GNOME Extensions
 
+Here's a categorization of the GNOME extensions:
+
 ### Productivity
-- clipboard-indicator
-- caffeine
-- ulauncher-toggle
+-   caffeine
+-   clipboard-indicator
+-   ulauncher-toggle
 
-### Utilities & System Enhancements
-- appindicator
-- gsconnect
-- sound-output-device-chooser
+### Utilities
+-   appindicator
+-   gsconnect
+-   sound-output-device-chooser
+-   quick-settings-tweaker
 
-### System Customization & Aesthetics
-- quick-settings-tweaker
-- just-perfection
-- blur-my-shell
+### Customization
+-   just-perfection
+-   blur-my-shell
 
 ## Ollama Models
 - qwen2.5-coder:3b
@@ -137,6 +135,7 @@ Here are the Flatpak applications categorized into logical groups:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
 
 
 
@@ -245,3 +244,11 @@ Here are the additional changes for today's NixOS flake log:
 *   Switched to the NixOS default firewall, renaming `ufw.nix` to `firewall.nix`.
 *   Ensured the backup service has `bash` and `git` available in its PATH.
 *   Included several manual updates and general configuration adjustments throughout the day.
+
+
+#### Part 11
+
+Here's a summary of the additional changes for today's NixOS flake log:
+
+*   Switched to the NixOS default firewall implementation and renamed the configuration file from `ufw.nix` to `firewall.nix`.
+*   Ensured the backup service has necessary executables (`bash`, `git`) available in its PATH.
