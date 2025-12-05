@@ -20,97 +20,101 @@
 
 Here's a categorization of the NixOS system packages:
 
-### Development Tools
--   gcc
--   lazygit
--   vimPlugins.nvchad
--   nodePackages.vercel
--   code-cursor
--   git
--   neovim
--   pnpm
--   nodejs
--   vscode
--   python3
--   go
--   rustc
--   cargo
--   lua
--   codex (assuming a development-related tool)
+### Development Tools & Languages
+- `gcc`
+- `lazygit`
+- `vimPlugins.nvchad`
+- `zimfw`
+- `codex`
+- `nodePackages.vercel`
+- `code-cursor`
+- `git`
+- `neovim`
+- `pnpm`
+- `nodejs`
+- `vscode`
+- `python3`
+- `go`
+- `rustc`
+- `cargo`
+- `lua`
 
-### Productivity & Security
--   bitwarden-desktop
--   gpaste
--   ulauncher
+### Shell & Terminal Utilities
+- `kitty`
+- `fastfetch`
+- `fzf`
+- `tmux`
+- `btop`
+- `bat`
 
-### System & Terminal Utilities
--   wget
--   kitty
--   fastfetch
--   fzf
--   tmux
--   curl
--   btop
--   bat
--   zimfw
--   gemini-cli
--   pokemon-colorscripts
+### Productivity & System Utilities
+- `gpaste`
+- `ulauncher`
+- `bitwarden-desktop`
+
+### Networking & Internet Utilities
+- `wget`
+- `curl`
+
+### AI Tools
+- `gemini-cli`
+
+### Fun & Aesthetics
+- `pokemon-colorscripts`
 
 ## Flatpaks
 
 Here's a categorization of the provided Flatpak applications:
 
-### Internet & Web
+### Web Browsers
 - app.zen_browser.zen
 
-### Communication
+### Communication & Social
 - dev.vencord.Vesktop
 - us.zoom.Zoom
 - com.slack.Slack
 
-### Productivity
-- org.gnome.Todo
-- io.github.qwersyk.Newelle
-
-### Multimedia
-- org.vinegarhq.Sober
-- io.github.mhogomchungu.media-downloader
-- com.obsproject.Studio
-
-### Graphics & Design
-- org.gimp.GIMP
-
 ### Gaming
+- com.usebottles.bottles
 - io.mrarm.mcpelauncher
 - com.mojang.Minecraft
 - com.pokemmo.PokeMMO
 - com.atlauncher.ATLauncher
 - io.github.Foldex.AdwSteamGtk
 
+### Graphics & Multimedia
+- org.gimp.GIMP
+- io.gitlab.adhami3310.Impression
+- io.github.mhogomchungu.media-downloader
+- com.obsproject.Studio
+
+### Productivity
+- org.gnome.Todo
+- io.github.qwersyk.Newelle
+
 ### Utilities & System Tools
 - org.kde.filelight
-- org.gnome.Extensions
+- org.vinegarhq.Sober
 - com.github.tchx84.Flatseal
-- io.gitlab.adhami3310.Impression
+- org.gnome.Extensions
 - io.github.pwr_solaar.solaar
 - org.x.Warpinator
 - io.github.giantpinkrobots.flatsweep
 - io.github.realmazharhussain.GdmSettings
-- com.usebottles.bottles
 
 ## GNOME Extensions
 
-### Utilities
+### Productivity & Workflow
+- caffeine
+- clipboard-indicator
+- ulauncher-toggle
+
+### System Utilities
 - appindicator
 - gsconnect
 - sound-output-device-chooser
 
-### Productivity
-- clipboard-indicator
-- caffeine
-- ulauncher-toggle
-
-### Customization
+### Appearance & Customization
 - quick-settings-tweaker
 - just-perfection
 - blur-my-shell
@@ -122,6 +126,8 @@ Here's a categorization of the provided Flatpak applications:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
+
 
 
 
@@ -183,3 +189,19 @@ Here are the additional changes for today's flake log:
 
 *   Switched to the NixOS default firewall, deprecating the `ufw` configuration.
 *   Ensured the backup service has `bash` and `git` available in its PATH.
+
+
+#### Part 6
+
+Here's a summary of the additional changes for today:
+
+*   Switched to the NixOS default firewall, renaming the configuration file from `ufw.nix` to `firewall.nix`.
+*   Ensured the backup service now includes `bash` and `git` in its `PATH`.
+
+
+#### Part 7
+
+Here are the additional changes for today's NixOS flake log:
+
+*   Switched to the NixOS default firewall and refactored its configuration file.
+*   Ensured the backup service's PATH includes `bash` and `git` for proper operation.

@@ -4,8 +4,11 @@
   # Enable NixOS default firewall
   networking.firewall.enable = true;
 
-  # Allow SSH on port 22
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  # Allow SSH on port 22 and Warpinator on port 42000
+  networking.firewall.allowedTCPPorts = [ 22 42000 ];
+
+  # Allow KDE Connect UDP ports 1714-1764
+  networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
 
   # Trust the Tailscale interface to allow all traffic from tailnet
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
