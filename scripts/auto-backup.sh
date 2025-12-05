@@ -184,13 +184,18 @@ if ! git status --porcelain | grep -q .; then
   exit 0
 fi
 
-# Stage and commit everything
-git add -A
+# Stage and commit everything; if staging fails (e.g., permissions), bail gracefully
+if ! git add -A; then
+  echo "Auto-backup: git add failed (permissions?); skipping commit/push" >&2
+  exit 0
+fi
 timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 git commit -m "Auto backup: ${timestamp}"
 
 # Push to the first configured remote if one exists
 remote="$(git remote | head -n1 || true)"
 if [ -n "$remote" ]; then
-  git push "$remote" HEAD
+  if ! git push "$remote" HEAD; then
+    echo "Auto-backup: push to '$remote' failed; leaving commit local" >&2
+  fi
 fi
