@@ -41,16 +41,21 @@ render_overview() {
   local readme="$REPO_DIR/README.md"
 
   local system_packages flatpaks ollama_models modules host timezone desktop gnome_extensions
-  system_packages="$(get_package_names ".#nixosConfigurations.hypr.config.environment.systemPackages")"
-  flatpaks="$(get_string_list ".#nixosConfigurations.hypr.config.services.flatpak.packages")"
-  ollama_models="$(get_string_list ".#nixosConfigurations.hypr.config.services.ollama.loadModels")"
+  # This awk script finds a list assignment (like `packages = [ ... ]`) and extracts the items.
+  local parse_pkg_list_cmd="awk '/= .*\\[/ { in_list=1; next } /\\]/ { in_list=0 } in_list { for (i=1; i<=NF; i++) { if (\$i !~ /\\[|\\]|=/ && \$i != \"\") { sub(/#.*/, \"\", \$i); if (\$i != \"\") print \$i } } }'"
+
+  system_packages=$(eval "$parse_pkg_list_cmd" "apps/package.nix")
+  gnome_extensions=$(eval "$parse_pkg_list_cmd" "apps/gnome-extensions.nix")
+  flatpaks=$(eval "$parse_pkg_list_cmd" "apps/flatpaks.nix" | tr -d '"')
+  ollama_models=$(eval "$parse_pkg_list_cmd" "apps/ollama.nix" | tr -d '"')
+
+  system_packages_categorized=$(generate_categorization "$system_packages" "NixOS system packages")
+  flatpaks_categorized=$(generate_categorization "$flatpaks" "Flatpak applications")
+  gnome_extensions_categorized=$(generate_categorization "$gnome_extensions" "GNOME extensions")
+
   host="$(nix eval --raw --extra-experimental-features 'nix-command flakes' ".#nixosConfigurations.hypr.config.networking.hostName" 2>/dev/null || echo "hypr")"
   timezone="$(nix eval --raw --extra-experimental-features 'nix-command flakes' ".#nixosConfigurations.hypr.config.time.timeZone" 2>/dev/null || echo "UTC")"
   desktop="GNOME (GDM)"
-
-  gnome_extensions="$(printf '%s\n' "$system_packages" | grep 'gnome-shell-extension' || true)"
-  # Filter out gnome extensions from the main package list
-  system_packages="$(printf '%s\n' "$system_packages" | grep -v 'gnome-shell-extension' || true)"
 
 
   modules="$(python - <<'PY'
@@ -61,7 +66,7 @@ seen = []
 for m in mods:
     if m not in seen:
         seen.append(m)
-print("\\n".join(seen))
+print("\n".join(seen))
 PY
 )"
 
@@ -83,16 +88,19 @@ PY
 $(printf '%s\n' "$modules" | sed 's/^/- /')
 
 ## System Packages
-$(printf '%s\n' "$system_packages" | sed 's/^/- /')
+
+$system_packages_categorized
 
 ## Flatpaks
-$(printf '%s\n' "$flatpaks" | sed 's/^/- /' | sed 's/ /\n/g')
+
+$flatpaks_categorized
 
 ## GNOME Extensions
-$(printf '%s\n' "$gnome_extensions" | sed 's/^/- /')
+
+$gnome_extensions_categorized
 
 ## Ollama Models
-$(printf '%s\n' "$ollama_models" | sed 's/^/- /' | sed 's/ /\n/g')
+$(printf '%s\n' "$ollama_models" | sed 's/^/- /')
 
 ## Daily Changes
 
@@ -143,7 +151,7 @@ update_daily_summary() {
 
   # Add a "Part X" header to the new summary content
   local part_num
-  part_num=$(( $(grep -c "#### Part" "$readme") + 2 ))
+  part_num=$(( $(grep -c '#### Part' "$readme" || echo 0) + 2 ))
   local update_content
   update_content=$(printf "\n\n#### Part %d\n\n%s" "$part_num" "$summary_update")
 
@@ -188,7 +196,7 @@ generate_ai_summary() {
   if grep -q "### $today" "$readme"; then
     # UPDATE existing entry
     local last_hash
-    last_hash=$(grep -oP '(?<=<!-- last_hash:)[a-f0-9]+' "$readme" | tail -n1)
+    last_hash=$(grep -oP '(?<=<!-- last_hash:)[a-f0-9]+' "$readme" | tail -n1 || true)
 
     if [ -z "$last_hash" ] || [ ! "$(git cat-file -t "$last_hash" 2>/dev/null)" = "commit" ]; then
       # Fallback if hash is missing or invalid
@@ -261,7 +269,7 @@ try:
     if "candidates" in data and len(data["candidates"]) > 0:
         print(data["candidates"][0]["content"]["parts"][0]["text"].strip())
     elif "error" in data:
-        print(f"Error from API: {data['error']['message']}", file=sys.stderr)
+        print("Error from API: " + data["error"]["message"], file=sys.stderr)
 except (json.JSONDecodeError, IndexError, KeyError) as e:
     # No need to exit, just return empty summary
     pass
@@ -278,27 +286,86 @@ except (json.JSONDecodeError, IndexError, KeyError) as e:
   fi
 }
 
+# Generate categorized markdown for a list of items using AI
+generate_categorization() {
+  local items="$1"
+  local type="$2"
+  if [ -z "${GEMINI_API_KEY:-}" ]; then
+    echo "GEMINI_API_KEY not set; skipping AI categorization" >&2
+    # Fallback to simple list
+    printf '%s\n' "$items" | sed 's/^/- /'
+    return
+  fi
+
+  local prompt payload response categorized
+  prompt=$(cat <<EOF
+Categorize these $type into logical groups such as Development, Productivity, Multimedia, Utilities, etc. Output in markdown format with ### Category headers followed by - item lists. Keep it concise and relevant.
+
+Items:
+$items
+EOF
+)
+  # Get categorization from Gemini
+  payload=$("$PYTHON_BIN" -c 'import json, sys; print(json.dumps({"contents":[{"parts":[{"text": sys.stdin.read()}]}]}))' <<< "$prompt")
+  response="$(curl -sS -w '\n%{http_code}' -H "x-goog-api-key: $GEMINI_API_KEY" -H 'Content-Type: application/json' -X POST -d "$payload" "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" || true)"
+  status="${response##*$'\n'}"
+  body="${response%$'\n'$status}"
+  categorized=$("$PYTHON_BIN" -c '
+import json, sys
+try:
+    data = json.loads(sys.stdin.read())
+    if "candidates" in data and len(data["candidates"]) > 0:
+        print(data["candidates"][0]["content"]["parts"][0]["text"].strip())
+    elif "error" in data:
+        print("Error from API: " + data["error"]["message"], file=sys.stderr)
+        sys.exit(1)
+except (json.JSONDecodeError, IndexError, KeyError) as e:
+    print("JSON error: " + str(e), file=sys.stderr)
+    sys.exit(1)
+' <<< "$body")
+
+  if [ -n "$categorized" ]; then
+    echo "$categorized"
+  else
+    echo "Gemini call failed or returned no categorization (status: ${status:-unknown})" >&2
+    if [ -n "$body" ]; then
+      echo "Gemini response: $body" >&2
+    fi
+    # Fallback
+    printf '%s\n' "$items" | sed 's/^/- /'
+  fi
+}
+
 # Build README overview and daily log (with optional Gemini summary)
 render_overview
 generate_ai_summary
 
+echo "DEBUG: Checking for git changes..."
+git status --porcelain
+
 # Only proceed when there is a change to capture
 if ! git status --porcelain | grep -q .; then
+  echo "DEBUG: No changes detected, exiting."
   exit 0
 fi
 
+echo "DEBUG: Changes detected, proceeding with commit."
 # Stage and commit everything; if staging fails (e.g., permissions), bail gracefully
 if ! git add -A; then
   echo "Auto-backup: git add failed (permissions?); skipping commit/push" >&2
   exit 0
 fi
+echo "DEBUG: 'git add -A' successful."
 timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 git commit -m "Auto backup: ${timestamp}"
+echo "DEBUG: Commit successful."
 
 # Push to the first configured remote if one exists
 remote="$(git remote | head -n1 || true)"
 if [ -n "$remote" ]; then
+  echo "DEBUG: Pushing to remote '$remote'..."
   if ! git push "$remote" HEAD; then
     echo "Auto-backup: push to '$remote' failed; leaving commit local" >&2
   fi
+  echo "DEBUG: Push command finished."
 fi
