@@ -48,6 +48,12 @@
 
         "xdg/wlogout/layout" = { source = ./configs/xdg/wlogout/layout; };
         "xdg/wlogout/style.css" = { source = ./configs/xdg/wlogout/style.css; };
+        "xdg/wlogout/icons/lock.png" = { source = ./configs/xdg/wlogout/icons/lock.png; };
+        "xdg/wlogout/icons/logout.png" = { source = ./configs/xdg/wlogout/icons/logout.png; };
+        "xdg/wlogout/icons/suspend.png" = { source = ./configs/xdg/wlogout/icons/suspend.png; };
+        "xdg/wlogout/icons/hibernate.png" = { source = ./configs/xdg/wlogout/icons/hibernate.png; };
+        "xdg/wlogout/icons/shutdown.png" = { source = ./configs/xdg/wlogout/icons/shutdown.png; };
+        "xdg/wlogout/icons/reboot.png" = { source = ./configs/xdg/wlogout/icons/reboot.png; };
 
         # swayidle/swaylock config may go in /etc/xdg/sway* or left to defaults
         "xdg/sway/swayidle" = { source = ./configs/xdg/sway/swayidle; };

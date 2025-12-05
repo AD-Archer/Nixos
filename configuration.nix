@@ -69,7 +69,7 @@ programs.steam = {
   # enable only the `hyprland` and `packages` modules from `./modules/hyprland`.
   # It DOES NOT automatically enable any display manager or create users.
   # To activate, set `hyprlandAddon.enable = true;` below.
-  # hyprlandAddon.enable = true;
+  hyprlandAddon.enable = true;
 
   # Auto git backup of /etc/nixos after successful activation (e.g., nixos-rebuild switch)
   system.activationScripts.autoBackup = ''
