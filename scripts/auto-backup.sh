@@ -26,13 +26,29 @@ export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/etc/nixos/dotfiles/ssh/known_
 # Evaluates a Nix expression that returns a list of derivations and prints their pname.
 get_package_names() {
   local attr_path="$1"
-  nix eval --raw --extra-experimental-features 'nix-command flakes' --apply "(map (p: p.pname or p))" "$attr_path" 2>/dev/null || true
+  local error_file
+  error_file=$(mktemp)
+  if output=$(nix eval --raw --extra-experimental-features 'nix-command flakes' --apply "(map (p: p.pname or p))" "$attr_path" 2>"$error_file"); then
+    echo "$output"
+  else
+    echo "DEBUG: nix eval failed for get_package_names on $attr_path. Error:" >&2
+    cat "$error_file" >&2
+  fi
+  rm -f "$error_file"
 }
 
 # Evaluates a Nix expression that returns a list of strings and prints them.
 get_string_list() {
   local attr_path="$1"
-  nix eval --raw --extra-experimental-features 'nix-command flakes' "$attr_path" 2>/dev/null || true
+  local error_file
+  error_file=$(mktemp)
+  if output=$(nix eval --raw --extra-experimental-features 'nix-command flakes' "$attr_path" 2>"$error_file"); then
+    echo "$output"
+  else
+    echo "DEBUG: nix eval failed for get_string_list on $attr_path. Error:" >&2
+    cat "$error_file" >&2
+  fi
+  rm -f "$error_file"
 }
 
 
