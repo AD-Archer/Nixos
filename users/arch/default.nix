@@ -39,7 +39,8 @@
   programs.ssh.enable = true;
   home.file.".ssh/config".source = ../../dotfiles/ssh/config;
   home.file.".ssh/known_hosts".source = ../../dotfiles/ssh/known_hosts;
-  home.file.".ssh/id_ed25519".source = ../../dotfiles/ssh/id_ed25519;
+  home.file.".ssh/id_ed25519".source =
+    config.lib.file.mkOutOfStoreSymlink "/etc/nixos/dotfiles/ssh/id_ed25519";
   home.file.".ssh/id_ed25519.pub".source = ../../dotfiles/ssh/id_ed25519.pub;
 
   # Ensure an ssh-agent is available in the session
