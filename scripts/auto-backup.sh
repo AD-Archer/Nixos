@@ -21,6 +21,8 @@ if [ -z "$PYTHON_BIN" ]; then
   exit 0
 fi
 
+export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/etc/nixos/dotfiles/ssh/known_hosts -o StrictHostKeyChecking=yes"
+
 # Convert nix eval JSON arrays into plain lines
 json_to_lines() {
   "$PYTHON_BIN" - <<'PY'
@@ -158,7 +160,7 @@ EOF
   body="${response%$'\n'$status}"
 
   summary="$(printf '%s' "$body" | "$PYTHON_BIN" - <<'PY'
-import json,sys
+import json,sys,traceback
 try:
     raw=sys.stdin.read()
     if not raw.strip():
@@ -167,12 +169,17 @@ try:
     text=data["candidates"][0]["content"]["parts"][0]["text"]
     print(text.strip())
 except Exception:
-    pass
+    traceback.print_exc()
 PY
 )"
 
   if [ -n "$summary" ]; then
-    insert_daily_summary "$today" "$summary"
+    if ! printf '%s' "$summary" | grep -q "Traceback"; then
+      insert_daily_summary "$today" "$summary"
+    else
+      echo "Gemini parse error:" >&2
+      printf '%s\n' "$summary" >&2
+    fi
   else
     echo "Gemini call failed or returned no summary (status: ${status:-unknown})" >&2
     if [ -n "$body" ]; then
