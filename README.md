@@ -12,6 +12,7 @@
 - ./apps/gnome-extensions.nix
 - ./apps/gnome-custom.nix
 - ./apps/ollama.nix
+- ./apps/firewall.nix
 - ./users/root/default.nix
 - ./users/arch/default.nix
 
@@ -23,8 +24,6 @@ Here's a categorization of the NixOS system packages:
 -   gcc
 -   lazygit
 -   vimPlugins.nvchad
--   gemini-cli
--   codex
 -   nodePackages.vercel
 -   code-cursor
 -   git
@@ -37,35 +36,34 @@ Here's a categorization of the NixOS system packages:
 -   rustc
 -   cargo
 -   lua
+-   codex (assuming a development-related tool)
 
-### Terminal Emulators & Enhancements
--   kitty
--   Terminal (generic entry for a terminal emulator)
--   fzf
--   tmux
--   bat
--   zimfw
-
-### CLI Utilities
--   wget
--   fastfetch
--   curl
--   btop
-
-### Productivity & Desktop Utilities
+### Productivity & Security
+-   bitwarden-desktop
 -   gpaste
 -   ulauncher
 
-### Security & Privacy
--   bitwarden-desktop
-
-### Aesthetics & Fun
+### System & Terminal Utilities
+-   wget
+-   kitty
+-   fastfetch
+-   fzf
+-   tmux
+-   curl
+-   btop
+-   bat
+-   zimfw
+-   gemini-cli
 -   pokemon-colorscripts
 
 ## Flatpaks
 
-### Internet & Communication
+Here's a categorization of the provided Flatpak applications:
+
+### Internet & Web
 - app.zen_browser.zen
+
+### Communication
 - dev.vencord.Vesktop
 - us.zoom.Zoom
 - com.slack.Slack
@@ -74,44 +72,45 @@ Here's a categorization of the NixOS system packages:
 - org.gnome.Todo
 - io.github.qwersyk.Newelle
 
+### Multimedia
+- org.vinegarhq.Sober
+- io.github.mhogomchungu.media-downloader
+- com.obsproject.Studio
+
+### Graphics & Design
+- org.gimp.GIMP
+
 ### Gaming
-- com.usebottles.bottles
 - io.mrarm.mcpelauncher
 - com.mojang.Minecraft
 - com.pokemmo.PokeMMO
 - com.atlauncher.ATLauncher
 - io.github.Foldex.AdwSteamGtk
 
-### Multimedia & Graphics
-- org.gimp.GIMP
-- io.gitlab.adhami3310.Impression
-- io.github.mhogomchungu.media-downloader
-- com.obsproject.Studio
-- io.github.jeffshee.Hidamari
-
 ### Utilities & System Tools
 - org.kde.filelight
-- org.vinegarhq.Sober
-- com.github.tchx84.Flatseal
 - org.gnome.Extensions
+- com.github.tchx84.Flatseal
+- io.gitlab.adhami3310.Impression
 - io.github.pwr_solaar.solaar
 - org.x.Warpinator
 - io.github.giantpinkrobots.flatsweep
 - io.github.realmazharhussain.GdmSettings
+- com.usebottles.bottles
 
 ## GNOME Extensions
+
+### Utilities
+- appindicator
+- gsconnect
+- sound-output-device-chooser
 
 ### Productivity
 - clipboard-indicator
 - caffeine
 - ulauncher-toggle
 
-### Utilities & Connectivity
-- appindicator
-- gsconnect
-- sound-output-device-chooser
-
-### User Interface & Customization
+### Customization
 - quick-settings-tweaker
 - just-perfection
 - blur-my-shell
@@ -123,6 +122,7 @@ Here's a categorization of the NixOS system packages:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
 
 
 
@@ -175,3 +175,11 @@ Here's a brief summary of the additional changes for today's log:
 
 *   Implemented a fix to ensure the backup service correctly finds `bash` and `git` in its PATH.
 *   Continuous progress throughout the day reflected in frequent automated and manual configuration backups.
+
+
+#### Part 5
+
+Here are the additional changes for today's flake log:
+
+*   Switched to the NixOS default firewall, deprecating the `ufw` configuration.
+*   Ensured the backup service has `bash` and `git` available in its PATH.
