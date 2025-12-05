@@ -36,7 +36,10 @@
   };
 
   # SSH managed by Home Manager (config + known_hosts + public key)
-  programs.ssh.enable = true;
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+  };
   home.file.".ssh/config".source = ../../dotfiles/ssh/config;
   home.file.".ssh/known_hosts".source = ../../dotfiles/ssh/known_hosts;
   home.file.".ssh/id_ed25519".source =

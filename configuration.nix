@@ -60,6 +60,7 @@
   curl
   btop
   bat
+  lazygit
 
   #node stuff
   codex
