@@ -11,6 +11,7 @@
     
     # Popular productivity
     caffeine
+    ulauncher-toggle
     
     # Working alternatives
     quick-settings-tweaker

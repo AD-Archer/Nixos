@@ -95,25 +95,11 @@ programs.steam = {
 
   nixpkgs.config.allowUnfree = true;
 
-  # Auto git backup of /etc/nixos every 10 minutes
-  systemd.services.nixos-auto-backup = {
-    description = "Auto backup /etc/nixos to git";
-    # Provide required binaries in PATH for the service
-    path = with pkgs; [ bash git coreutils gnused gnugrep findutils ];
-    serviceConfig = {
-      Type = "oneshot";
-      User = "arch"; # use user's SSH key/remote config
-      WorkingDirectory = "/etc/nixos";
-      ExecStart = "/etc/nixos/scripts/auto-backup.sh";
-    };
-  };
-
-  systemd.timers.nixos-auto-backup = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnBootSec = "5min";
-      OnUnitActiveSec = "10min";
-      Unit = "nixos-auto-backup.service";
-    };
-  };
+  # Auto git backup of /etc/nixos after successful activation (e.g., nixos-rebuild switch)
+  system.activationScripts.autoBackup = ''
+    if [ -x /etc/nixos/scripts/auto-backup.sh ]; then
+      # Run as arch so pushes use the user's creds/config
+      /run/wrappers/bin/su -s ${pkgs.bash}/bin/bash arch -c /etc/nixos/scripts/auto-backup.sh
+    fi
+  '';
 }
