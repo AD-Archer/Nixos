@@ -147,17 +147,20 @@ EOF
 
   payload=$(printf '{"contents":[{"parts":[{"text":"%s"}]}]}' "$(printf '%s' "$prompt" | sed 's/"/\\"/g')")
 
-  response="$(curl -sS \
+  # Capture both body and status code for debugging
+  response="$(curl -sS -w '\n%{http_code}' \
     -H "x-goog-api-key: $GEMINI_API_KEY" \
     -H 'Content-Type: application/json' \
     -X POST \
     -d "$payload" \
     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" || true)"
+  status="${response##*$'\n'}"
+  body="${response%$'\n'$status}"
 
   summary="$("$PYTHON_BIN" - <<'PY'
 import json,sys
 try:
-    raw=sys.stdin.read()
+    raw='''$body'''
     if not raw.strip():
         raise RuntimeError("empty")
     data=json.loads(raw)
@@ -166,12 +169,15 @@ try:
 except Exception:
     pass
 PY
-<<<"$response")"
+)"
 
   if [ -n "$summary" ]; then
     insert_daily_summary "$today" "$summary"
   else
-    echo "Gemini did not return a summary" >&2
+    echo "Gemini call failed or returned no summary (status: ${status:-unknown})" >&2
+    if [ -n "$body" ]; then
+      echo "Gemini response (truncated): $(printf '%s' "$body" | head -c 400)" >&2
+    fi
   fi
 }
 
