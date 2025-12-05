@@ -4,9 +4,6 @@
   # Enable dconf for GNOME settings
   programs.dconf.enable = true;
 
-  # Kitty terminal
-  environment.systemPackages = with pkgs; [ kitty ];
-
   # Custom GNOME keybinds via systemd user service
   systemd.user.services.gnome-keybinds = {
     description = "Custom GNOME Keybinds";

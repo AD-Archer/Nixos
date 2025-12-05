@@ -9,7 +9,6 @@
     "com.usebottles.bottles"
     "com.github.tchx84.Flatseal"
     "org.gimp.GIMP"
-    "com.bitwarden.desktop"
     "us.zoom.Zoom"
     "io.gitlab.adhami3310.Impression"
     "io.mrarm.mcpelauncher"
@@ -26,6 +25,9 @@
     "com.atlauncher.ATLauncher"
     "io.github.qwersyk.Newelle"
     "io.github.Foldex.AdwSteamGtk"
+
+    #Utils
+    "com.obsproject.Studio"
 
 
 

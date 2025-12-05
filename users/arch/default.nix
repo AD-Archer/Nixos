@@ -9,18 +9,29 @@
     ".config/kitty".source = ../../dotfiles/kitty;
     ".config/nvim".source = ../../dotfiles/nvim;
     ".config/tmux".source = ../../dotfiles/tmux;
+    ".ssh/known_hosts".force = true;
+    ".ssh/config".force = true;
   };
 
   # Configure Zsh with Oh My Zsh and Powerlevel10k theme
   programs.zsh = {
     enable = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
+    syntaxHighlighting = {
+      enable = true;
+      styles = {
+        command = "fg=green";
+        builtin = "fg=cyan";
+        alias = "fg=yellow";
+        path = "fg=blue";
+        "reserved-word" = "fg=magenta";
+      };
+    };
     plugins = [
-      { name = "zsh-autosuggestions"; src = pkgs.zsh-autosuggestions; }
-      { name = "zsh-completions"; src = pkgs.zsh-completions; }
-      { name = "zsh-syntax-highlighting"; src = pkgs.zsh-syntax-highlighting; }
       { name = "zsh-history-substring-search"; src = pkgs.zsh-history-substring-search; }
       { name = "zsh-you-should-use"; src = pkgs.zsh-you-should-use; }
+      { name = "zsh-nix-shell"; src = pkgs.zsh-nix-shell; }
     ];
     shellAliases = {
       ll = "ls -l";
@@ -36,7 +47,6 @@
         "docker"
         "docker-compose"
         "kubectl"
-        "nix-shell"
         "colored-man-pages"
         "extract"
         "history-substring-search"
@@ -48,6 +58,7 @@
       if [[ $- == *i* ]]; then
         pokemon-colorscripts --no-title -b -n charizard -f mega-y -s | fastfetch --logo -
       fi
+      ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
     '';
   };
 
@@ -55,6 +66,15 @@
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  # Git identity (managed by Home Manager instead of manual global config)
+  programs.git = {
+    enable = true;
+    settings = {
+      user.name = "ad-archer";
+      user.email = "antonioarcher.dev@gmail.com";
+    };
   };
 
   # SSH managed by Home Manager (config + known_hosts + public key)

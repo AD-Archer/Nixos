@@ -17,6 +17,8 @@ dotfiles/ssh/id_*
 *~
 .#*
 .DS_Store
+.env.secrets
+.gitconfig
 
 # Home Manager backup files
 *.backup

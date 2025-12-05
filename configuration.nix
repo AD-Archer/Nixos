@@ -33,41 +33,9 @@
     };
   users.users.root.shell = pkgs.zsh;
 
-  
-  # Packages
   programs.zoxide.enable = true;
   programs.zsh.enable = true;
-  environment.systemPackages = with pkgs; [
-  wget
-  kitty
-  gcc
-  fastfetch
-  gpaste
-  ulauncher
-  pokemon-colorscripts
-
-  # Terminal
-  tmux
-  curl
-  btop
-  bat
-  lazygit
-  vimPlugins.nvchad
-  zimfw
-  gemini-cli
-
-  #code stuff
-  codex
-  nodePackages.vercel
-  code-cursor
-  git
-  neovim
-  pnpm
-  nodejs
-  vscode
-  ];
-
-programs.zoxide.enableZshIntegration = true;
+  programs.zoxide.enableZshIntegration = true;
 programs.steam = {
   enable = true;
   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play

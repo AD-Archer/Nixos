@@ -17,6 +17,7 @@
       modules = [
         nix-flatpak.nixosModules.nix-flatpak
         ./configuration.nix
+        ./apps/package.nix
         ./apps/flatpaks.nix
         ./apps/gnome-extensions.nix
         ./apps/gnome-custom.nix
