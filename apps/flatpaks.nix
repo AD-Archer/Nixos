@@ -30,6 +30,11 @@
 
 
   ];
+  services.flatpak.overrides = {
+    "io.github.qwersyk.Newelle" = {
+      Context.filesystems = [ "home" ];
+      "Session Bus Policy"."org.freedesktop.Flatpak" = "talk";
+    };
+  };
   services.flatpak.uninstallUnmanaged = true;  # Removes undeclared apps on rebuild
 }
-
