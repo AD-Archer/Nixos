@@ -35,12 +35,78 @@ get_string_list() {
   nix eval --raw --extra-experimental-features 'nix-command flakes' --apply "list: builtins.concatStringsSep \"\n\" list" "$attr_path" 2>/dev/null || true
 }
 
+# Extracts firewall settings from apps/firewall.nix into a newline-separated list
+# that can be summarized or categorized by the AI, with sensible fallbacks.
+extract_firewall_config() {
+  if [ ! -f "$REPO_DIR/apps/firewall.nix" ]; then
+    return
+  fi
+
+  "$PYTHON_BIN" - <<'PY'
+import re, pathlib, sys
+
+path = pathlib.Path("apps/firewall.nix")
+if not path.exists():
+    sys.exit(0)
+
+text = path.read_text()
+
+def find_ports(key: str):
+  match = re.search(rf"{re.escape(key)}\s*=\s*\[([^\]]*)\];", text, re.S)
+  if not match:
+    return []
+  return re.findall(r"\b\d+\b", match.group(1))
+
+def find_interfaces(key: str):
+  match = re.search(rf"{re.escape(key)}\s*=\s*\[([^\]]*)\];", text, re.S)
+  if not match:
+    return []
+  return re.findall(r'"([^"]+)"', match.group(1))
+
+def find_udp_ranges():
+  match = re.search(r"allowedUDPPortRanges\s*=\s*\[(.*?)\];", text, re.S)
+  if not match:
+    return []
+  ranges = []
+  for frm, to in re.findall(r"from\s*=\s*(\d+);\s*to\s*=\s*(\d+);", match.group(1)):
+    ranges.append(f"UDP {frm}-{to}")
+  return ranges
+
+items = []
+
+if re.search(r"networking\.firewall\.enable\s*=\s*true", text):
+  items.append("Firewall enabled (NixOS)")
+
+tcp_ports = find_ports("networking.firewall.allowedTCPPorts")
+if tcp_ports:
+  items.append("Allow TCP: " + ", ".join(tcp_ports))
+
+udp_ranges = find_udp_ranges()
+if udp_ranges:
+  items.append("Allow UDP ranges: " + ", ".join(udp_ranges))
+
+trusted = find_interfaces("networking.firewall.trustedInterfaces")
+if trusted:
+  items.append("Trusted interfaces: " + ", ".join(trusted))
+
+permit_root = re.search(r"PermitRootLogin\s*=\s*\"?([A-Za-z0-9-]+)\"?", text)
+if permit_root:
+  items.append(f"SSH PermitRootLogin: {permit_root.group(1)}")
+
+pw_auth = re.search(r"PasswordAuthentication\s*=\s*(true|false)", text)
+if pw_auth:
+  items.append(f"SSH password auth: {pw_auth.group(1)}")
+
+print("\n".join(items))
+PY
+}
+
 
 # Capture key flake information and render the README overview
 render_overview() {
   local readme="$REPO_DIR/README.md"
 
-  local system_packages flatpaks ollama_models modules host timezone desktop gnome_extensions
+  local system_packages flatpaks ollama_models modules host timezone desktop gnome_extensions firewall_config firewall_categorized
   # This awk script finds a list assignment (like `packages = [ ... ]`) and extracts the items.
   local parse_pkg_list_cmd="awk '/= .*\\[/ { in_list=1; next } /\\]/ { in_list=0 } in_list { for (i=1; i<=NF; i++) { if (\$i !~ /\\[|\\]|=/ && \$i != \"\") { sub(/#.*/, \"\", \$i); if (\$i != \"\") print \$i } } }'"
 
@@ -48,10 +114,16 @@ render_overview() {
   gnome_extensions=$(eval "$parse_pkg_list_cmd" "apps/gnome-extensions.nix")
   flatpaks=$(eval "$parse_pkg_list_cmd" "apps/flatpaks.nix" | tr -d '"')
   ollama_models=$(eval "$parse_pkg_list_cmd" "apps/ollama.nix" | tr -d '"')
+  firewall_config=$(extract_firewall_config)
 
   system_packages_categorized=$(generate_categorization "$system_packages" "NixOS system packages")
   flatpaks_categorized=$(generate_categorization "$flatpaks" "Flatpak applications")
   gnome_extensions_categorized=$(generate_categorization "$gnome_extensions" "GNOME extensions")
+  if [ -n "$firewall_config" ]; then
+    firewall_categorized=$(generate_categorization "$firewall_config" "Firewall configuration and SSH access")
+  else
+    firewall_categorized="No firewall configuration found."
+  fi
 
   host="$(nix eval --raw --extra-experimental-features 'nix-command flakes' ".#nixosConfigurations.hypr.config.networking.hostName" 2>/dev/null || echo "hypr")"
   timezone="$(nix eval --raw --extra-experimental-features 'nix-command flakes' ".#nixosConfigurations.hypr.config.time.timeZone" 2>/dev/null || echo "UTC")"
@@ -86,6 +158,10 @@ PY
 
 ## Modules
 $(printf '%s\n' "$modules" | sed 's/^/- /')
+
+## Firewall
+
+$firewall_categorized
 
 ## System Packages
 
