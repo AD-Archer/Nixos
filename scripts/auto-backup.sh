@@ -157,10 +157,10 @@ EOF
   status="${response##*$'\n'}"
   body="${response%$'\n'$status}"
 
-  summary="$("$PYTHON_BIN" - <<'PY'
+  summary="$(printf '%s' "$body" | "$PYTHON_BIN" - <<'PY'
 import json,sys
 try:
-    raw='''$body'''
+    raw=sys.stdin.read()
     if not raw.strip():
         raise RuntimeError("empty")
     data=json.loads(raw)
