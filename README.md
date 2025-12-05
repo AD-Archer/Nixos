@@ -17,97 +17,95 @@
 
 ## System Packages
 
+Here's a categorization of the NixOS system packages:
+
 ### Development
-- gcc
-- lazygit
-- vimPlugins.nvchad
-- codex
-- nodePackages.vercel
-- code-cursor
-- git
-- neovim
-- pnpm
-- nodejs
-- vscode
-- python3
-- go
-- rustc
-- cargo
-- lua
+-   cargo
+-   codex
+-   code-cursor
+-   gcc
+-   git
+-   go
+-   lazygit
+-   lua
+-   neovim
+-   nodePackages.vercel
+-   nodejs
+-   pnpm
+-   python3
+-   rustc
+-   vimPlugins.nvchad
+-   vscode
 
 ### Productivity
-- gpaste
-- ulauncher
-- bitwarden-desktop
-- tmux
-- zimfw
+-   bitwarden-desktop
+-   gpaste
+-   ulauncher
 
-### System Utilities
-- wget
-- curl
-- btop
-- fastfetch
+### Utilities
+-   bat
+-   btop
+-   curl
+-   fastfetch
+-   fzf
+-   gemini-cli
+-   kitty
+-   tmux
+-   wget
+-   zimfw
 
-### Terminal Emulators & Tools
-- kitty
-- fzf
-- bat
-- gemini-cli
-
-### Fun & Personalization
-- pokemon-colorscripts
+### Fun & Entertainment
+-   pokemon-colorscripts
 
 ## Flatpaks
 
-Here are the Flatpak applications categorized into logical groups:
-
 ### Internet & Communication
-- app.zen_browser.zen
-- dev.vencord.Vesktop
-- us.zoom.Zoom
-- com.slack.Slack
-
-### Gaming
-- com.usebottles.bottles
-- io.mrarm.mcpelauncher
-- com.mojang.Minecraft
-- com.pokemmo.PokeMMO
-- com.atlauncher.ATLauncher
-- io.github.Foldex.AdwSteamGtk
-
-### Utilities & System Tools
-- org.kde.filelight
-- org.vinegarhq.Sober
-- com.github.tchx84.Flatseal
-- io.gitlab.adhami3310.Impression
-- org.gnome.Extensions
-- io.github.pwr_solaar.solaar
-- org.x.Warpinator
-- io.github.giantpinkrobots.flatsweep
-- io.github.realmazharhussain.GdmSettings
+-   app.zen_browser.zen
+-   dev.vencord.Vesktop
+-   us.zoom.Zoom
+-   com.slack.Slack
 
 ### Productivity
-- org.gnome.Todo
-- io.github.qwersyk.Newelle
+-   org.gnome.Todo
+-   io.github.qwersyk.Newelle
 
-### Multimedia & Graphics
-- org.gimp.GIMP
-- io.github.mhogomchungu.media-downloader
-- com.obsproject.Studio
+### Utilities & System Tools
+-   org.kde.filelight
+-   org.vinegarhq.Sober
+-   com.usebottles.bottles
+-   com.github.tchx84.Flatseal
+-   org.gnome.Extensions
+-   io.github.pwr_solaar.solaar
+-   org.x.Warpinator
+-   io.github.giantpinkrobots.flatsweep
+-   io.github.realmazharhussain.GdmSettings
+
+### Graphics & Multimedia
+-   org.gimp.GIMP
+-   io.gitlab.adhami3310.Impression
+-   io.github.mhogomchungu.media-downloader
+-   com.obsproject.Studio
+
+### Gaming
+-   io.mrarm.mcpelauncher
+-   com.mojang.Minecraft
+-   com.pokemmo.PokeMMO
+-   com.atlauncher.ATLauncher
+-   io.github.Foldex.AdwSteamGtk
 
 ## GNOME Extensions
 
-### Productivity
+### Productivity & Workflow
 - clipboard-indicator
 - caffeine
 - ulauncher-toggle
 
-### Utilities
+### System & Connectivity
 - appindicator
 - gsconnect
 - sound-output-device-chooser
 
-### Customization & Theming
+### Customization & UI Tweaks
 - quick-settings-tweaker
 - just-perfection
 - blur-my-shell
@@ -119,6 +117,7 @@ Here are the Flatpak applications categorized into logical groups:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
 
 
 
