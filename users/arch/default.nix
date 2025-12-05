@@ -14,8 +14,14 @@
   # Configure Zsh with Oh My Zsh and Powerlevel10k theme
   programs.zsh = {
     enable = true;
-    autosuggestion.enable = true;
     enableCompletion = true;
+    plugins = [
+      { name = "zsh-autosuggestions"; src = pkgs.zsh-autosuggestions; }
+      { name = "zsh-completions"; src = pkgs.zsh-completions; }
+      { name = "zsh-syntax-highlighting"; src = pkgs.zsh-syntax-highlighting; }
+      { name = "zsh-history-substring-search"; src = pkgs.zsh-history-substring-search; }
+      { name = "zsh-you-should-use"; src = pkgs.zsh-you-should-use; }
+    ];
     shellAliases = {
       ll = "ls -l";
       cd = "z"; 
@@ -25,7 +31,17 @@
     oh-my-zsh = {
       enable = true;
       theme = "refined";
-      plugins = [ "git" ]; # Add other plugins here if you wish
+      plugins = [
+        "git"
+        "docker"
+        "docker-compose"
+        "kubectl"
+        "nix-shell"
+        "colored-man-pages"
+        "extract"
+        "history-substring-search"
+        "sudo"
+      ];
     };
     initContent = ''
       export GEMINI_API_KEY="AIzaSyAOInrCZh5U9QTT580E379BXX4c5b0PxvA"
