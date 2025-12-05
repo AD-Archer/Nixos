@@ -1,0 +1,22 @@
+# Nix build symlinks
+result
+result-*
+
+# SSH keys (keep publics tracked)
+dotfiles/ssh/id_*
+dotfiles/ssh/id_*.pub
+
+# Dev shells and caches
+.direnv
+.envrc
+.cache
+
+# Editor artifacts
+*.swp
+*.swo
+*~
+.#*
+.DS_Store
+
+# Home Manager backup files
+*.backup
