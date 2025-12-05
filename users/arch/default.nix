@@ -3,8 +3,6 @@
 {
   # Home Manager settings
   home.stateVersion = "25.11"; # Pin to a specific version for stability
-  # Use a unique backup extension to avoid clobbering existing *.backup files
-  home-manager.backupFileExtension = "hm-bak";
 
   # Link configuration files from the 'dotfiles' directory
   home.file = {
@@ -29,6 +27,12 @@
       theme = "refined";
       plugins = [ "git" ]; # Add other plugins here if you wish
     };
+    initContent = ''
+      export GEMINI_API_KEY="AIzaSyAOInrCZh5U9QTT580E379BXX4c5b0PxvA"
+      if [[ $- == *i* ]]; then
+        pokemon-colorscripts --no-title -b -n charizard -f mega-x -s | fastfetch --logo -
+      fi
+    '';
   };
 
   # Enable Zoxide for smarter directory navigation

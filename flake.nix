@@ -28,7 +28,8 @@
             useUserPackages = true;
             users.root = import ./users/root/default.nix;
             users.arch = import ./users/arch/default.nix;
-            backupFileExtension = "backup";
+            # Avoid clobbering existing *.backup files; use a unique suffix
+            backupFileExtension = "hm-bak";
           };
         }
       ];

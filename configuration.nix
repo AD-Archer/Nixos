@@ -36,7 +36,6 @@
   
   # Packages
   programs.zoxide.enable = true;
-  programs.firefox.enable = true;
   programs.zsh.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -61,6 +60,8 @@
   btop
   bat
   lazygit
+  vimPlugins.nvchad
+  zimfw
 
   #node stuff
   codex
@@ -82,6 +83,7 @@ programs.steam = {
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  programs.gpaste.enable = true;
   # Keep GNOME but drop its default terminal/browser
   environment.gnome.excludePackages = with pkgs; [
     gnome-console
