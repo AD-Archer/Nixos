@@ -37,18 +37,9 @@
 
   # SSH managed by Home Manager (config + known_hosts + public key)
   programs.ssh.enable = true;
-  home.file.".ssh/config" = {
-    source = ../../dotfiles/ssh/config;
-    mode = "0600";
-  };
-  home.file.".ssh/known_hosts" = {
-    source = ../../dotfiles/ssh/known_hosts;
-    mode = "0644";
-  };
-  home.file.".ssh/id_ed25519.pub" = {
-    source = ../../dotfiles/ssh/id_ed25519.pub;
-    mode = "0644";
-  };
+  home.file.".ssh/config".source = ../../dotfiles/ssh/config;
+  home.file.".ssh/known_hosts".source = ../../dotfiles/ssh/known_hosts;
+  home.file.".ssh/id_ed25519.pub".source = ../../dotfiles/ssh/id_ed25519.pub;
 
   # Let home-manager manage its own files
   programs.home-manager.enable = true;

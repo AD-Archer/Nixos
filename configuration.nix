@@ -97,7 +97,7 @@ programs.steam = {
     description = "Auto backup /etc/nixos to git";
     serviceConfig = {
       Type = "oneshot";
-      User = "root";
+      User = "arch"; # use user's SSH key/remote config
       WorkingDirectory = "/etc/nixos";
       ExecStart = "/etc/nixos/scripts/auto-backup.sh";
     };
@@ -112,4 +112,3 @@ programs.steam = {
     };
   };
 }
-
