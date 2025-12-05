@@ -37,35 +37,34 @@
   # Packages
   programs.zoxide.enable = true;
   programs.zsh.enable = true;
-
   environment.systemPackages = with pkgs; [
-  vim
   wget
   kitty
   gcc
-  nodejs
-  pnpm
   fastfetch
-  vscode
   gpaste
   ulauncher
   pokemon-colorscripts
-  gemini-cli
 
   # Terminal
   tmux
-  neovim
-  git
   curl
   btop
   bat
   lazygit
   vimPlugins.nvchad
   zimfw
+  gemini-cli
 
-  #node stuff
+  #code stuff
   codex
   nodePackages.vercel
+  code-cursor
+  git
+  neovim
+  pnpm
+  nodejs
+  vscode
   ];
 
 programs.zoxide.enableZshIntegration = true;
@@ -83,6 +82,7 @@ programs.steam = {
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.sessionPath = [ pkgs.gpaste ];
   programs.gpaste.enable = true;
   # Keep GNOME but drop its default terminal/browser
   environment.gnome.excludePackages = with pkgs; [
