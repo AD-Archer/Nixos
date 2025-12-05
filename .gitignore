@@ -22,3 +22,4 @@ dotfiles/ssh/id_*
 
 # Home Manager backup files
 *.backup
+temp/

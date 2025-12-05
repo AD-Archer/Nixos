@@ -5,6 +5,7 @@
   [
   ./hardware-configuration.nix
   ./apps/firewall.nix
+  ./modules/hyprland-addon.nix
   ]; 
 
 
@@ -17,11 +18,8 @@
   time.timeZone = "America/New_York";
   services.getty.autologinUser = "arch";
   
-  programs.hyprland = {
-  enable=false;
-  xwayland.enable = true;
-  withUWSM = true; 
- };
+  # Hyprland is managed by the add-on module (see `modules/hyprland/*`).
+  # If you want hyprland enabled, set `hyprlandAddon.enable = true;` below.
 
 
   users.users.arch = {
@@ -65,6 +63,13 @@ programs.steam = {
   virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+
+  # -- Hyprland Add-on --
+  # This integrates the local hyprland add-on as an optional module. It will import and
+  # enable only the `hyprland` and `packages` modules from `./modules/hyprland`.
+  # It DOES NOT automatically enable any display manager or create users.
+  # To activate, set `hyprlandAddon.enable = true;` below.
+  # hyprlandAddon.enable = true;
 
   # Auto git backup of /etc/nixos after successful activation (e.g., nixos-rebuild switch)
   system.activationScripts.autoBackup = ''

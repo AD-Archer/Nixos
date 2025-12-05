@@ -1,0 +1,10 @@
+/* same as the style.css from flake: */
+* {
+  border: none;
+  border-radius: 0;
+  font-family: Jetbrains Mono Nerd Font, monospace;
+  font-weight: bold;
+  font-size: 14px;
+  min-height: 0;
+}
+/* truncated for brevity -- please replace with your preferred style or see the source at ./temp/... */
