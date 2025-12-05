@@ -150,8 +150,9 @@ update_daily_summary() {
   temp_readme="$(mktemp)"
 
   # Add a "Part X" header to the new summary content
-  local part_num
-  part_num=$(( $(grep -c '#### Part' "$readme" 2>/dev/null || printf '0') + 2 ))
+  local part_num part_count
+  part_count=$(grep -c '#### Part' "$readme" 2>/dev/null) || part_count=0
+  part_num=$(( part_count + 2 ))
   local update_content
   update_content=$(printf "\n\n#### Part %d\n\n%s" "$part_num" "$summary_update")
 
