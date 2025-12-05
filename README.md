@@ -9,49 +9,320 @@
 - ./configuration.nix\n./apps/package.nix\n./apps/flatpaks.nix\n./apps/gnome-extensions.nix\n./apps/gnome-custom.nix\n./apps/ollama.nix\n./users/root/default.nix\n./users/arch/default.nix
 
 ## System Packages
-- 
+- wget
+- kitty
+- gcc-wrapper
+- fastfetch
+- gpaste
+- ulauncher
+- pokemon-colorscripts
+- fzf
+- bitwarden-desktop
+- tmux
+- curl
+- btop
+- bat
+- lazygit
+- nvchad
+- zimfw
+- gemini-cli
+- codex
+- /nix/store/60z28gl28z20nfpp2zvf4zn20wbqpa9l-vercel-41.4.1
+- cursor
+- git
+- neovim
+- pnpm
+- nodejs
+- vscode
+- python3
+- go
+- rustc
+- cargo
+- lua
+- gpaste
+- gnome-shell
+- gpaste
+- sound-theme-freedesktop
+- gnome-shell
+- adwaita-icon-theme
+- /nix/store/n9ns4c7qp5ikprrr7pj3i0awsxzsigrc-nixos-background-info
+- gnome-backgrounds
+- gnome-bluetooth
+- gnome-color-manager
+- gnome-control-center
+- gnome-tour
+- gnome-user-docs
+- glib
+- gnome-menus
+- gtk+3
+- xdg-user-dirs
+- xdg-user-dirs-gtk
+- baobab
+- decibels
+- gnome-text-editor
+- gnome-calculator
+- gnome-calendar
+- gnome-characters
+- gnome-clocks
+- gnome-contacts
+- gnome-font-viewer
+- gnome-logs
+- gnome-maps
+- gnome-music
+- gnome-system-monitor
+- gnome-weather
+- loupe
+- nautilus
+- papers
+- gnome-connections
+- showtime
+- simple-scan
+- snapshot
+- yelp
+- /nix/store/l3559237x920lvg0hp89hlxkda3lgis9-nixos-version
+- nixos-rebuild-ng
+- /nix/store/dh1ybd307k1nc4zrngcf9snyldl100ym-nixos-option
+- /nix/store/kxg213p29xdxy0gx0dad6y630qxra68y-nixos-install
+- /nix/store/1z0ff2yjss0wg8z97ychlm9xifaa3mqs-nixos-generate-config
+- /nix/store/0n6aijmxa7nng9dnff8lg5j36a5nvcbj-nixos-enter
+- /nix/store/d3jiysfm5hgavfdm4bqqh7shlcjm95cw-nixos-build-vms
+- lvm2
+- dosfstools
+- mtools
+- e2fsprogs
+- dosfstools
+- bcache-tools
+- systemd
+- kmod
+- kexec-tools
+- xorg-server
+- xrandr
+- xrdb
+- setxkbmap
+- iceauth
+- xlsclients
+- xset
+- xsetroot
+- xinput
+- xprop
+- xauth
+- xterm
+- xf86-input-evdev
+- colord
+- nix
+- /nix/store/niqdd7rqnk92r6kmvnmhnvz0r60x10jc-nix-info
+- nix-bash-completions
+- dbus
+- tailscale
+- networkmanager
+- wpa_supplicant
+- modemmanager
+- iptables
+- /nix/store/4dvzyhm3xzfmkc2jx9fpykrdv17vb3sb-nixos-firewall-tool
+- avahi
+- ollama
+- nixos-icons
+- xdg-utils
+- upower
+- udisks
+- power-profiles-daemon
+- xf86-input-libinput
+- bolt
+- bluez
+- adwaita-icon-theme
+- gdm
+- wireplumber
+- pipewire
+- gvfs
+- tinysparql
+- sushi
+- rygel
+- localsearch
+- gnome-user-share
+- gnome-software
+- gnome-settings-daemon
+- gnome-remote-desktop
+- gnome-online-accounts
+- gnome-keyring
+- gnome-initial-setup
+- gnome-browser-connector
+- /nix/store/603f3w09vb79m0ld7a0zh44r6352lxil-evolution-with-plugins
+- at-spi2-core
+- geoclue
+- flatpak
+- fuse
+- dleyna
+- accountsservice
+- speech-dispatcher
+- orca
+- sudo
+- rtkit
+- polkit
+- polkit
+- linux-pam
+- zsh
+- nix-zsh-completions
+- zoxide
+- steam
+- /nix/store/sq5dc6zas2jwxfd1df8ws1iblday64w5-steam-run
+- shadow
+- bash-interactive
+- seahorse
+- nano
+- less
+- gpaste
+- gnome-disk-utility
+- geary
+- fuse
+- fuse
+- dconf
+- man-db
+- texinfo-interactive
+- /nix/store/h3v9n4x21z1fr3qdzsa9qbs2vpjh48q9-nixos-configuration-reference-manpage
+- /nix/store/fg83gyydn5zpsr76chqabr9159sfk2kc-nixos-manual-html
+- /nix/store/0hn6g2ar738n2k996d489wbbqnccj7jh-nixos-help
+- sound-theme-freedesktop
+- xdg-desktop-portal
+- xdg-desktop-portal-gnome
+- xdg-desktop-portal-gtk
+- gnome-keyring
+- gnome-session
+- shared-mime-info
+- hicolor-icon-theme
+- zsh
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- zsh
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- shadow
+- bind
+- hostname-debian
+- iproute2
+- iputils
+- openssh
+- acl
+- attr
+- bash-interactive
+- bzip2
+- coreutils-full
+- cpio
+- curl
+- diffutils
+- findutils
+- gawk
+- /nix/store/dl7wg5yg8h12a5bc97aqj4mdlywhihy1-getent-glibc-2.40-66
+- /nix/store/hm3ccr9gxymhwl85j000l7mszpp510x3-getconf-glibc-2.40-66
+- gnugrep
+- patch
+- gnused
+- gnutar
+- gzip
+- xz
+- less
+- libcap
+- ncurses
+- libressl
+- mkpasswd
+- procps
+- shadow
+- time
+- util-linux
+- which
+- zstd
+- glibc
+- perl
+- rsync
+- strace
+- openresolv
+- glibc-locales
+- /nix/store/jj1z6nfwwsfnbz140n25bg1pzkwxys9p-X11-fonts
+- fontconfig
+- kbd
 
 ## Flatpaks
 -
 
 ## GNOME Extensions
-- 
+- gnome-shell-extension-appindicator-support
+- gnome-shell-extension-clipboard-indicator
+- gnome-shell-extension-gsconnect
+- gnome-shell-extension-sound-output-device-chooser
+- gnome-shell-extension-caffeine
+- gnome-shell-extension-ulauncher-toggle
+- gnome-shell-extension-quick-settings-tweaker
+- gnome-shell-extension-just-perfection
+- gnome-shell-extension-blur-my-shell
 
 ## Ollama Models
 -
-## Daily Changes
-
-### 2025-12-05
-
-Here's a summary of today's NixOS flake changes:
-
-*   Multiple automatic backups were generated by `arch` during an early morning session.
-*   Further automatic backups were recorded by `ad-archer` during a late afternoon session, indicating active development.
-*   A specific adjustment was made to the backup service, ensuring `bash` and `git` are correctly available in its `PATH`.
-
-Highlight: Ensured backup service properly accesses `bash` and `git`.
-
-
-
-### 2025-12-05
-
-Here's a summary of today's NixOS flake changes:
-
-*   A specific fix was applied to the backup service, ensuring `bash` and `git` are correctly available in its execution PATH.
-*   Multiple auto-backup commits were logged throughout the day by `ad-archer`, indicating continuous development and incremental saves.
-*   Earlier, `arch` also made several auto-backup and timestamped commits, capturing progress on the flake.
-
-Highlight: Critical PATH fix implemented for the backup service.
-
+qwen2.5-coder:3b
+-
+hf.co/mradermacher/Dolphin3.0-Qwen2.5-0.5B-GGUF:Q8_0
+-
+hf.co/Qwen/Qwen2.5-Coder-1.5B-Instruct-GGUF:Q4_K_M
+-
+mxbai-embed-large:latest
 
 ## Daily Changes
 
+
 ### 2025-12-05
 
 Here's a summary of today's NixOS flake changes:
 
-*   Resolved an issue with the backup service by explicitly adding `bash` and `git` to its PATH, enhancing its reliability.
-*   Manual configuration updates were committed in the early morning by `arch`, signaling general progress on the flake.
-*   Numerous auto-backup snapshots were recorded throughout the day by both `arch` and `ad-archer`.
+*   Resolved an issue with the backup service by explicitly adding bash and git to its PATH, enhancing its reliability.
+*   Manual configuration updates were committed in the early morning by arch, signaling general progress on the flake.
+*   Numerous auto-backup snapshots were recorded throughout the day by both arch and ad-archer.
 
 Highlight: Backup service PATH dependency addressed for stability.

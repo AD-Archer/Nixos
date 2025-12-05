@@ -26,29 +26,13 @@ export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/etc/nixos/dotfiles/ssh/known_
 # Evaluates a Nix expression that returns a list of derivations and prints their pname.
 get_package_names() {
   local attr_path="$1"
-  local error_file
-  error_file=$(mktemp)
-  if output=$(nix eval --raw --extra-experimental-features 'nix-command flakes' --apply "(map (p: p.pname or p))" "$attr_path" 2>"$error_file"); then
-    echo "$output"
-  else
-    echo "DEBUG: nix eval failed for get_package_names on $attr_path. Error:" >&2
-    cat "$error_file" >&2
-  fi
-  rm -f "$error_file"
+  nix eval --raw --extra-experimental-features 'nix-command flakes' --apply "list: builtins.concatStringsSep \"\n\" (map (p: p.pname or p) list)" "$attr_path" 2>/dev/null || true
 }
 
 # Evaluates a Nix expression that returns a list of strings and prints them.
 get_string_list() {
   local attr_path="$1"
-  local error_file
-  error_file=$(mktemp)
-  if output=$(nix eval --raw --extra-experimental-features 'nix-command flakes' "$attr_path" 2>"$error_file"); then
-    echo "$output"
-  else
-    echo "DEBUG: nix eval failed for get_string_list on $attr_path. Error:" >&2
-    cat "$error_file" >&2
-  fi
-  rm -f "$error_file"
+  nix eval --raw --extra-experimental-features 'nix-command flakes' --apply "list: builtins.concatStringsSep \"\n\" list" "$attr_path" 2>/dev/null || true
 }
 
 
@@ -120,6 +104,7 @@ EOF
 insert_daily_summary() {
   local date="$1"
   local summary="$2"
+  local new_hash="$3"
   local readme="$REPO_DIR/README.md"
 
   # Everything before the "Daily Changes" section
@@ -130,19 +115,61 @@ insert_daily_summary() {
   local daily_content
   daily_content="$(sed -n '/^## Daily Changes/,$p' "$readme" | tail -n +2)"
 
-  # Reconstruct the README with the new summary at the top of the daily section
+  # The new entry for today
+  local new_entry
+  new_entry=$(printf "### %s\n<!-- last_hash:%s -->\n\n%s" "$date" "$new_hash" "$summary")
+
+  # Reconstruct the README
   {
     printf "%s\n" "$before_daily"
     echo "## Daily Changes"
     echo
-    echo "### $date"
-    echo
-    echo "$summary"
+    printf "%s" "$new_entry"
     if [ -n "$daily_content" ]; then
-      printf "\n%s" "$daily_content"
+      # Add a newline to separate from older entries
+      printf "\n\n%s" "$daily_content"
     fi
   } > "$readme"
 }
+
+# Updates an existing daily summary with new content
+update_daily_summary() {
+  local date="$1"
+  local summary_update="$2"
+  local new_hash="$3"
+  local readme="$REPO_DIR/README.md"
+  local temp_readme
+  temp_readme="$(mktemp)"
+
+  # Add a "Part X" header to the new summary content
+  local part_num
+  part_num=$(( $(grep -c "#### Part" "$readme") + 2 ))
+  local update_content
+  update_content=$(printf "\n\n#### Part %d\n\n%s" "$part_num" "$summary_update")
+
+  # Use awk to find the section for the given date and insert the update before the next section or at the end
+  awk -v date_str="### $date" -v update="$update_content" '
+    BEGIN { found = 0; inserted = 0 }
+    $0 ~ date_str { found = 1 }
+    found && !inserted && /^### / && $0 !~ date_str {
+      print update;
+      inserted = 1;
+    }
+    { print }
+    END {
+      if (found && !inserted) {
+        print update;
+      }
+    }
+  ' "$readme" > "$temp_readme"
+
+  # Now, update the hash in the temp file
+  sed -i "s/<!-- last_hash:.* -->/<!-- last_hash:$new_hash -->/" "$temp_readme"
+
+  # Replace the original readme
+  mv "$temp_readme" "$readme"
+}
+
 
 generate_ai_summary() {
   if [ -z "${GEMINI_API_KEY:-}" ]; then
@@ -150,37 +177,46 @@ generate_ai_summary() {
     return
   fi
 
-  local today log_content prompt payload response summary
+  local today log_content prompt payload response summary readme
   today="$(date +%Y-%m-%d)"
-  log_content="$(git log --since=midnight --pretty=format:'- %h %s (%an)' --no-merges || true)"
+  readme="$REPO_DIR/README.md"
 
-  if [ -z "$log_content" ]; then
-    return
-  fi
+  local current_hash
+  current_hash=$(git rev-parse HEAD)
 
-  prompt=$(cat <<EOF
-Summarize today's NixOS flake changes for the daily README log.
+  # Check if an entry for today already exists
+  if grep -q "### $today" "$readme"; then
+    # UPDATE existing entry
+    local last_hash
+    last_hash=$(grep -oP '(?<=<!-- last_hash:)[a-f0-9]+' "$readme" | tail -n1)
+
+    if [ -z "$last_hash" ] || [ ! "$(git cat-file -t "$last_hash" 2>/dev/null)" = "commit" ]; then
+      # Fallback if hash is missing or invalid
+      log_content=$(git log --since=midnight --pretty=format:'- %h %s (%an)' --no-merges)
+    elif [ "$last_hash" != "$current_hash" ]; then
+      # Get logs since the last summarized commit
+      log_content=$(git log "$last_hash..$current_hash" --pretty=format:'- %h %s (%an)' --no-merges)
+    else
+      log_content="" # No new commits to summarize
+    fi
+
+    if [ -z "$log_content" ]; then
+      return
+    fi
+
+    prompt=$(cat <<EOF
+Summarize these additional changes for today's NixOS flake log. This is an update to an existing summary. Keep it brief (2-4 bullets).
 Date: $today
-Changes:
+New Changes:
 $log_content
-
-Return 3-6 concise bullets and end with one short highlight line prefixed by "Highlight:".
 EOF
 )
-
-  payload=$("$PYTHON_BIN" -c 'import json, sys; print(json.dumps({"contents":[{"parts":[{"text": sys.stdin.read()}]}]}))' <<< "$prompt")
-
-  # Capture both body and status code for debugging
-  response="$(curl -sS -w '\n%{http_code}' \
-    -H "x-goog-api-key: $GEMINI_API_KEY" \
-    -H 'Content-Type: application/json' \
-    -X POST \
-    -d "$payload" \
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" || true)"
-  status="${response##*$'\n'}"
-  body="${response%$'\n'$status}"
-
-  summary=$("$PYTHON_BIN" -c '
+    # Get summary from Gemini
+    payload=$("$PYTHON_BIN" -c 'import json, sys; print(json.dumps({"contents":[{"parts":[{"text": sys.stdin.read()}]}]}))' <<< "$prompt")
+    response="$(curl -sS -w '\n%{http_code}' -H "x-goog-api-key: $GEMINI_API_KEY" -H 'Content-Type: application/json' -X POST -d "$payload" "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" || true)"
+    status="${response##*$'\n'}"
+    body="${response%$'\n'$status}"
+    summary=$("$PYTHON_BIN" -c '
 import json, sys
 try:
     data = json.loads(sys.stdin.read())
@@ -189,16 +225,55 @@ try:
     elif "error" in data:
         print(f"Error from API: {data['error']['message']}", file=sys.stderr)
 except (json.JSONDecodeError, IndexError, KeyError) as e:
-    print(f"Failed to parse Gemini response: {e}", file=sys.stderr)
-    sys.exit(1)
+    # No need to exit, just return empty summary
+    pass
 ' <<< "$body")
 
-  if [ -n "$summary" ]; then
-    insert_daily_summary "$today" "$summary"
+    if [ -n "$summary" ]; then
+      update_daily_summary "$today" "$summary" "$current_hash"
+    fi
   else
-    echo "Gemini call failed or returned no summary (status: ${status:-unknown})" >&2
-    if [ -n "$body" ]; then
-      echo "Gemini response: $body" >&2
+    # CREATE new entry for today
+    log_content="$(git log --since=midnight --pretty=format:'- %h %s (%an)' --no-merges || true)"
+
+    if [ -z "$log_content" ]; then
+      return
+    fi
+
+    prompt=$(cat <<EOF
+Summarize today's NixOS flake changes for the daily README log.
+Date: $today
+Changes:
+$log_content
+
+Return 3-6 concise bullets and end with one short highlight line prefixed by "Highlight:".
+EOF
+)
+    # Get summary from Gemini
+    payload=$("$PYTHON_BIN" -c 'import json, sys; print(json.dumps({"contents":[{"parts":[{"text": sys.stdin.read()}]}]}))' <<< "$prompt")
+    response="$(curl -sS -w '\n%{http_code}' -H "x-goog-api-key: $GEMINI_API_KEY" -H 'Content-Type: application/json' -X POST -d "$payload" "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" || true)"
+    status="${response##*$'\n'}"
+    body="${response%$'\n'$status}"
+    summary=$("$PYTHON_BIN" -c '
+import json, sys
+try:
+    data = json.loads(sys.stdin.read())
+    if "candidates" in data and len(data["candidates"]) > 0:
+        print(data["candidates"][0]["content"]["parts"][0]["text"].strip())
+    elif "error" in data:
+        print(f"Error from API: {data['error']['message']}", file=sys.stderr)
+except (json.JSONDecodeError, IndexError, KeyError) as e:
+    # No need to exit, just return empty summary
+    pass
+' <<< "$body")
+
+    if [ -n "$summary" ]; then
+      insert_daily_summary "$today" "$summary" "$current_hash"
+    else
+      echo "Gemini call failed or returned no summary (status: ${status:-unknown})" >&2
+      if [ -n "$body" ]; then
+        echo "Gemini response: $body" >&2
+      fi
     fi
   fi
 }
