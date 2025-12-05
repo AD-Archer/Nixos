@@ -22,6 +22,7 @@
         ./apps/gnome-extensions.nix
         ./apps/gnome-custom.nix
         ./apps/ollama.nix
+        ./apps/firewall.nix
         home-manager.nixosModules.home-manager
         {
           home-manager = {

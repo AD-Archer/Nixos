@@ -54,7 +54,6 @@
       ];
     };
     initContent = ''
-      export GEMINI_API_KEY="AIzaSyAOInrCZh5U9QTT580E379BXX4c5b0PxvA"
       if [[ $- == *i* ]]; then
         pokemon-colorscripts --no-title -b -n charizard -f mega-y -s | fastfetch --logo -
       fi
