@@ -9,7 +9,7 @@
       enable = true;
       # safe defaults copied from main configuration; these do not enable DMs or users
       xwayland.enable = true;
-      withUWSM = true;
+      withUWSM = false;
     };
 
     environment.systemPackages = with pkgs; [
