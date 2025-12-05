@@ -4,7 +4,7 @@ result-*
 
 # SSH keys (keep publics tracked)
 dotfiles/ssh/id_*
-dotfiles/ssh/id_*.pub
+!dotfiles/ssh/id_*.pub
 
 # Dev shells and caches
 .direnv
