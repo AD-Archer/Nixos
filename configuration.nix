@@ -96,6 +96,8 @@ programs.steam = {
   # Auto git backup of /etc/nixos every 10 minutes
   systemd.services.nixos-auto-backup = {
     description = "Auto backup /etc/nixos to git";
+    # Provide required binaries in PATH for the service
+    path = with pkgs; [ bash git coreutils gnused gnugrep findutils ];
     serviceConfig = {
       Type = "oneshot";
       User = "arch"; # use user's SSH key/remote config
