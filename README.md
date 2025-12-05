@@ -18,121 +18,118 @@
 
 ## Firewall
 
-### System Security
+### Security & System Administration
 - Firewall enabled (NixOS)
 - SSH PermitRootLogin: no
 - SSH password auth: false
+- Allow TCP: 22 (for secure remote administration)
 
-### Development & Remote Access
-- Allow TCP: 22 (SSH for remote work, server access)
-- Allow TCP: 42000 (Web previews, development services)
+### Networking & Remote Access
+- Trusted interfaces: tailscale0
 
-### Network Connectivity
-- Trusted interfaces: tailscale0 (Secure VPN for peer-to-peer networking)
+### Productivity & Integration
+- Allow UDP ranges: UDP 1714-1764 (Commonly used by KDE Connect for device integration)
 
-### Device Integration
-- Allow UDP ranges: UDP 1714-1764 (KDE Connect for cross-device features)
+### Custom Applications & Development
+- Allow TCP: 42000 (Typically for custom services or development applications)
 
 ## System Packages
 
-Here's a categorization of the provided NixOS system packages:
+### Development
+- gcc
+- lazygit
+- vimPlugins.nvchad
+- Dev
+- codex
+- nodePackages.vercel
+- code-cursor
+- git
+- neovim
+- pnpm
+- nodejs
+- vscode
+- python3
+- go
+- rustc
+- cargo
+- lua
 
-### Development Tools & Languages
--   gcc
--   lazygit
--   vimPlugins.nvchad
--   codex
--   nodePackages.vercel
--   code-cursor
--   git
--   neovim
--   pnpm
--   nodejs
--   vscode
--   python3
--   go
--   rustc
--   cargo
--   lua
+### Utilities
+- wget
+- kitty
+- fastfetch
+- gpaste
+- ulauncher
+- fzf
+- Terminal
+- tools
+- tmux
+- curl
+- btop
+- bat
+- zimfw
+- gemini-cli
 
-### Terminal Emulators & Utilities
--   kitty
--   tmux
--   fzf
--   bat
--   zimfw
-
-### Networking & Communication
--   wget
--   curl
--   gemini-cli
-
-### Productivity & System Utilities
--   gpaste
--   ulauncher
--   bitwarden-desktop
-
-### System Information & Monitoring
--   fastfetch
--   btop
+### Productivity & Security
+- bitwarden-desktop
 
 ### Fun & Customization
--   pokemon-colorscripts
+- pokemon-colorscripts
 
 ## Flatpaks
 
-Here are the Flatpak applications categorized into logical groups:
-
 ### Internet & Communication
--   app.zen_browser.zen
--   dev.vencord.Vesktop
--   us.zoom.Zoom
--   com.slack.Slack
+- app.zen_browser.zen
+- dev.vencord.Vesktop
+- us.zoom.Zoom
+- com.slack.Slack
 
-### Utilities
--   org.kde.filelight
--   org.vinegarhq.Sober
--   com.usebottles.bottles
--   com.github.tchx84.Flatseal
--   io.gitlab.adhami3310.Impression
--   org.gnome.Extensions
--   io.github.pwr_solaar.solaar
--   org.x.Warpinator
--   io.github.giantpinkrobots.flatsweep
--   io.github.realmazharhussain.GdmSettings
--   io.github.mhogomchungu.media-downloader
--   io.github.qwersyk.Newelle
+### Utilities & System Tools
+- org.kde.filelight
+- org.vinegarhq.Sober
+- com.usebottles.bottles
+- com.github.tchx84.Flatseal
+- io.gitlab.adhami3310.Impression
+- org.gnome.Extensions
+- io.github.pwr_solaar.solaar
+- org.x.Warpinator
+- io.github.giantpinkrobots.flatsweep
+- io.github.realmazharhussain.GdmSettings
+
+### Multimedia & Graphics
+- org.gimp.GIMP
+- io.github.mhogomchungu.media-downloader
+- com.obsproject.Studio
 
 ### Productivity
--   org.gnome.Todo
+- org.gnome.Todo
+- io.github.qwersyk.Newelle
 
-### Graphics & Multimedia
--   org.gimp.GIMP
--   com.obsproject.Studio
-
-### Gaming
--   io.mrarm.mcpelauncher
--   com.mojang.Minecraft
--   com.pokemmo.PokeMMO
--   com.atlauncher.ATLauncher
--   io.github.Foldex.AdwSteamGtk
+### Games
+- io.mrarm.mcpelauncher
+- com.mojang.Minecraft
+- com.pokemmo.PokeMMO
+- com.atlauncher.ATLauncher
+- io.github.Foldex.AdwSteamGtk
 
 ## GNOME Extensions
 
+### System Utilities
+- appindicator
+- clipboard-indicator
+- sound-output-device-chooser
+
 ### Productivity
--   clipboard-indicator
--   caffeine
--   ulauncher-toggle
+- caffeine
+- ulauncher-toggle
 
-### System Integration & Management
--   appindicator
--   gsconnect
--   sound-output-device-chooser
+### Connectivity & Integration
+- gsconnect
 
-### User Interface Customization
--   quick-settings-tweaker
--   just-perfection
--   blur-my-shell
+### Customization & Aesthetics
+- quick-settings-tweaker
+- just-perfection
+- blur-my-shell
 
 ## Ollama Models
 - qwen2.5-coder:3b
@@ -141,6 +138,7 @@ Here are the Flatpak applications categorized into logical groups:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
 
 
 
@@ -268,3 +266,12 @@ Here's a summary of the additional changes for today's log:
 *   Switched to the NixOS default firewall, accompanied by a rename of the configuration file from `ufw.nix` to `firewall.nix`.
 *   Improved the backup service by ensuring `bash` and `git` are correctly included in its PATH.
 *   Numerous automated backups and timestamped saves reflect continuous development and progress throughout the day.
+
+
+#### Part 13
+
+Here are the additional changes for today's NixOS flake log:
+
+*   Switched to the NixOS default firewall, refactoring the configuration file from `ufw.nix` to `firewall.nix`.
+*   Improved the reliability of the backup service by explicitly ensuring `bash` and `git` are available in its PATH.
+*   Recorded numerous automated backups and several manual checkpoints throughout the day.
