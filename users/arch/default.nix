@@ -41,6 +41,9 @@
   home.file.".ssh/known_hosts".source = ../../dotfiles/ssh/known_hosts;
   home.file.".ssh/id_ed25519.pub".source = ../../dotfiles/ssh/id_ed25519.pub;
 
+  # Ensure an ssh-agent is available in the session
+  services.ssh-agent.enable = true;
+
   # Let home-manager manage its own files
   programs.home-manager.enable = true;
 }
