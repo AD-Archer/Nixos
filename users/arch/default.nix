@@ -3,6 +3,8 @@
 {
   # Home Manager settings
   home.stateVersion = "25.11"; # Pin to a specific version for stability
+  # Use a unique backup extension to avoid clobbering existing *.backup files
+  home-manager.backupFileExtension = "hm-bak";
 
   # Link configuration files from the 'dotfiles' directory
   home.file = {
