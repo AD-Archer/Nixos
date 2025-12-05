@@ -147,7 +147,7 @@ Return 3-6 concise bullets and end with one short highlight line prefixed by "Hi
 EOF
 )
 
-  payload=$(printf '{"contents":[{"parts":[{"text":"%s"}]}]}' "$(printf '%s' "$prompt" | sed 's/"/\\"/g')")
+  payload=$("$PYTHON_BIN" -c 'import json, sys; print(json.dumps({"contents":[{"parts":[{"text": sys.stdin.read()}]}]}))' <<< "$prompt")
 
   # Capture both body and status code for debugging
   response="$(curl -sS -w '\n%{http_code}' \
@@ -159,26 +159,25 @@ EOF
   status="${response##*$'\n'}"
   body="${response%$'\n'$status}"
 
-  summary="$(printf '%s' "$body" | "$PYTHON_BIN" - <<'PY'
-import json,sys
+  summary=$("$PYTHON_BIN" -c '
+import json, sys
 try:
-    raw=sys.stdin.read()
-    if not raw.strip():
-        sys.exit(0)
-    data=json.loads(raw)
-    text=data["candidates"][0]["content"]["parts"][0]["text"]
-    print(text.strip())
-except Exception:
-    sys.exit(0)
-PY
-)"
+    data = json.loads(sys.stdin.read())
+    if "candidates" in data and len(data["candidates"]) > 0:
+        print(data["candidates"][0]["content"]["parts"][0]["text"].strip())
+    elif "error" in data:
+        print(f"Error from API: {data['error']['message']}", file=sys.stderr)
+except (json.JSONDecodeError, IndexError, KeyError) as e:
+    print(f"Failed to parse Gemini response: {e}", file=sys.stderr)
+    sys.exit(1)
+' <<< "$body")
 
   if [ -n "$summary" ]; then
     insert_daily_summary "$today" "$summary"
   else
     echo "Gemini call failed or returned no summary (status: ${status:-unknown})" >&2
     if [ -n "$body" ]; then
-      echo "Gemini response (truncated): $(printf '%s' "$body" | head -c 400)" >&2
+      echo "Gemini response: $body" >&2
     fi
   fi
 }
