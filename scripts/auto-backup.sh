@@ -160,26 +160,21 @@ EOF
   body="${response%$'\n'$status}"
 
   summary="$(printf '%s' "$body" | "$PYTHON_BIN" - <<'PY'
-import json,sys,traceback
+import json,sys
 try:
     raw=sys.stdin.read()
     if not raw.strip():
-        raise RuntimeError("empty")
+        sys.exit(0)
     data=json.loads(raw)
     text=data["candidates"][0]["content"]["parts"][0]["text"]
     print(text.strip())
 except Exception:
-    traceback.print_exc()
+    sys.exit(0)
 PY
 )"
 
   if [ -n "$summary" ]; then
-    if ! printf '%s' "$summary" | grep -q "Traceback"; then
-      insert_daily_summary "$today" "$summary"
-    else
-      echo "Gemini parse error:" >&2
-      printf '%s\n' "$summary" >&2
-    fi
+    insert_daily_summary "$today" "$summary"
   else
     echo "Gemini call failed or returned no summary (status: ${status:-unknown})" >&2
     if [ -n "$body" ]; then
