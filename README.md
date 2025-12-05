@@ -20,67 +20,65 @@
 Here's a categorization of the NixOS system packages:
 
 ### Development Tools
--   gcc
--   lazygit
--   vimPlugins.nvchad
--   nodePackages.vercel
--   code-cursor
--   git
--   neovim
--   pnpm
--   nodejs
--   vscode
--   python3
--   go
--   rustc
--   cargo
--   lua
--   codex
+- gcc
+- lazygit
+- vimPlugins.nvchad
+- codex
+- nodePackages.vercel
+- code-cursor
+- git
+- neovim
+- pnpm
+- nodejs
+- vscode
+- python3
+- go
+- rustc
+- cargo
+- lua
 
-### Productivity & Desktop Utilities
--   gpaste
--   ulauncher
--   bitwarden-desktop
+### Productivity & Office
+- gpaste
+- ulauncher
+- bitwarden-desktop
 
-### Terminal & CLI Utilities
--   wget
--   kitty
--   fastfetch
--   fzf
--   Terminal
--   tmux
--   curl
--   btop
--   bat
--   zimfw
--   gemini-cli
+### System Utilities
+- wget
+- kitty
+- fastfetch
+- fzf
+- Terminal
+- tools
+- tmux
+- curl
+- btop
+- bat
+- zimfw
+- gemini-cli
 
-### Entertainment & Customization
--   pokemon-colorscripts
+### Customization & Fun
+- pokemon-colorscripts
 
 ## Flatpaks
 
-Here are the Flatpak applications categorized into logical groups:
-
-### Productivity
+### Internet & Web Browsers
 - app.zen_browser.zen
-- org.gnome.Todo
-- io.github.qwersyk.Newelle
 
 ### Communication
 - dev.vencord.Vesktop
-- org.vinegarhq.Sober
 - us.zoom.Zoom
 - com.slack.Slack
 
-### Multimedia
+### Productivity
+- org.gnome.Todo
+- io.github.qwersyk.Newelle
+
+### Graphics & Multimedia
 - org.gimp.GIMP
-- io.gitlab.adhami3310.Impression
-- io.github.mhogomchungu.media-downloader
 - com.obsproject.Studio
+- io.github.jeffshee.Hidamari
 
 ### Gaming
-- com.usebottles.bottles
 - io.mrarm.mcpelauncher
 - com.mojang.Minecraft
 - com.pokemmo.PokeMMO
@@ -89,29 +87,35 @@ Here are the Flatpak applications categorized into logical groups:
 
 ### Utilities
 - org.kde.filelight
+- org.vinegarhq.Sober
+- com.usebottles.bottles
 - com.github.tchx84.Flatseal
+- io.gitlab.adhami3310.Impression
 - org.gnome.Extensions
 - io.github.pwr_solaar.solaar
 - org.x.Warpinator
 - io.github.giantpinkrobots.flatsweep
 - io.github.realmazharhussain.GdmSettings
+- io.github.mhogomchungu.media-downloader
 
 ## GNOME Extensions
 
 ### Productivity
--   clipboard-indicator
--   caffeine
--   ulauncher-toggle
+- caffeine
+- clipboard-indicator
+- ulauncher-toggle
 
-### System Utilities
--   appindicator
--   gsconnect
--   sound-output-device-chooser
+### System Utilities & UI Management
+- appindicator
+- sound-output-device-chooser
 
-### UI Customization & Enhancement
--   quick-settings-tweaker
--   just-perfection
--   blur-my-shell
+### Connectivity & Integration
+- gsconnect
+
+### Customization & Aesthetics
+- just-perfection
+- quick-settings-tweaker
+- blur-my-shell
 
 ## Ollama Models
 - qwen2.5-coder:3b
@@ -120,6 +124,7 @@ Here are the Flatpak applications categorized into logical groups:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
 
 
 
@@ -153,3 +158,12 @@ Here are the additional changes for today's NixOS flake log:
 *   Ensured the backup service has `bash` and `git` in its PATH for proper operation.
 *   Numerous automated backups were committed throughout the day, reflecting continuous development.
 *   Several manual progress checkpoints, notably "12/5/25 12.35AM" and "12/5/25 12.50AM", were recorded by different contributors.
+
+
+#### Part 3
+
+Here's a summary of the additional changes:
+
+*   The backup service was updated to ensure `bash` and `git` are correctly included in its PATH.
+*   Multiple manual commits in the early morning likely reflect significant configuration adjustments.
+*   Numerous automated backups were performed throughout the day, capturing the flake's evolving state.
