@@ -23,44 +23,35 @@ fi
 
 export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/etc/nixos/dotfiles/ssh/known_hosts -o StrictHostKeyChecking=yes"
 
-# Convert nix eval JSON arrays into plain lines
-json_to_lines() {
-  "$PYTHON_BIN" - <<'PY'
-import json,sys
-raw=sys.stdin.read()
-if not raw.strip():
-    sys.exit(0)
-try:
-    data=json.loads(raw)
-except Exception:
-    sys.exit(0)
-if isinstance(data, list):
-    for item in data:
-        if isinstance(item, str):
-            print(item)
-        elif isinstance(item, dict) and "name" in item:
-            print(item["name"])
-PY
+# Evaluates a Nix expression that returns a list of derivations and prints their pname.
+get_package_names() {
+  local attr_path="$1"
+  nix eval --raw --extra-experimental-features 'nix-command flakes' --apply "(map (p: p.pname or p))" "$attr_path" 2>/dev/null || true
 }
 
-# Safe array eval helper (returns [] on failure)
-eval_array() {
-  nix eval --json --extra-experimental-features 'nix-command flakes' "$1" 2>/dev/null || echo "[]"
+# Evaluates a Nix expression that returns a list of strings and prints them.
+get_string_list() {
+  local attr_path="$1"
+  nix eval --raw --extra-experimental-features 'nix-command flakes' "$attr_path" 2>/dev/null || true
 }
+
 
 # Capture key flake information and render the README overview
 render_overview() {
   local readme="$REPO_DIR/README.md"
 
   local system_packages flatpaks ollama_models modules host timezone desktop gnome_extensions
-  system_packages="$(eval_array ".#nixosConfigurations.hypr.config.environment.systemPackages" | json_to_lines || true)"
-  flatpaks="$(eval_array ".#nixosConfigurations.hypr.config.services.flatpak.packages" | json_to_lines || true)"
-  ollama_models="$(eval_array ".#nixosConfigurations.hypr.config.services.ollama.loadModels" | json_to_lines || true)"
+  system_packages="$(get_package_names ".#nixosConfigurations.hypr.config.environment.systemPackages")"
+  flatpaks="$(get_string_list ".#nixosConfigurations.hypr.config.services.flatpak.packages")"
+  ollama_models="$(get_string_list ".#nixosConfigurations.hypr.config.services.ollama.loadModels")"
   host="$(nix eval --raw --extra-experimental-features 'nix-command flakes' ".#nixosConfigurations.hypr.config.networking.hostName" 2>/dev/null || echo "hypr")"
   timezone="$(nix eval --raw --extra-experimental-features 'nix-command flakes' ".#nixosConfigurations.hypr.config.time.timeZone" 2>/dev/null || echo "UTC")"
   desktop="GNOME (GDM)"
 
   gnome_extensions="$(printf '%s\n' "$system_packages" | grep 'gnome-shell-extension' || true)"
+  # Filter out gnome extensions from the main package list
+  system_packages="$(printf '%s\n' "$system_packages" | grep -v 'gnome-shell-extension' || true)"
+
 
   modules="$(python - <<'PY'
 import re, pathlib
@@ -74,11 +65,11 @@ print("\\n".join(seen))
 PY
 )"
 
-  local daily_section=""
+  local daily_section_content=""
   if [ -f "$readme" ]; then
-    daily_section="$(sed -n '/^## Daily Changes$/,$p' "$readme")"
+    # Get all content from "## Daily Changes" onwards, but strip the header itself.
+    daily_section_content="$(sed -n '/^## Daily Changes/,$p' "$readme" | tail -n +2)"
   fi
-  [ -z "$daily_section" ] && daily_section="## Daily Changes\n\n"
 
   cat > "$readme" <<EOF
 # NixOS Flake Overview (hypr)
@@ -95,15 +86,17 @@ $(printf '%s\n' "$modules" | sed 's/^/- /')
 $(printf '%s\n' "$system_packages" | sed 's/^/- /')
 
 ## Flatpaks
-$(printf '%s\n' "$flatpaks" | sed 's/^/- /')
+$(printf '%s\n' "$flatpaks" | sed 's/^/- /' | sed 's/ /\n/g')
 
 ## GNOME Extensions
 $(printf '%s\n' "$gnome_extensions" | sed 's/^/- /')
 
 ## Ollama Models
-$(printf '%s\n' "$ollama_models" | sed 's/^/- /')
+$(printf '%s\n' "$ollama_models" | sed 's/^/- /' | sed 's/ /\n/g')
 
-$daily_section
+## Daily Changes
+
+$daily_section_content
 EOF
 }
 
@@ -113,14 +106,26 @@ insert_daily_summary() {
   local summary="$2"
   local readme="$REPO_DIR/README.md"
 
-  local before daily
-  before="$(awk '/^## Daily Changes$/{exit} {print}' "$readme")"
-  daily="$(sed -n '/^## Daily Changes$/,$p' "$readme")"
-  [ -z "$daily" ] && daily="## Daily Changes\n\n"
+  # Everything before the "Daily Changes" section
+  local before_daily
+  before_daily="$(sed '/^## Daily Changes/q' "$readme" | sed '$d')"
 
-  daily="$(printf "## Daily Changes\n\n### %s\n\n%s\n\n%s" "$date" "$summary" "$(printf '%s' "$daily" | tail -n +3)")"
+  # The existing content of the "Daily Changes" section
+  local daily_content
+  daily_content="$(sed -n '/^## Daily Changes/,$p' "$readme" | tail -n +2)"
 
-  { printf "%s\n%s\n" "$before" "$daily"; } > "$readme"
+  # Reconstruct the README with the new summary at the top of the daily section
+  {
+    printf "%s\n" "$before_daily"
+    echo "## Daily Changes"
+    echo
+    echo "### $date"
+    echo
+    echo "$summary"
+    if [ -n "$daily_content" ]; then
+      printf "\n%s" "$daily_content"
+    fi
+  } > "$readme"
 }
 
 generate_ai_summary() {
