@@ -28,7 +28,6 @@
 
     #Utils
     "com.obsproject.Studio"
-    "io.github.jeffshee.Hidamari"
 
 
 

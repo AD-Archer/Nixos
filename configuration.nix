@@ -25,7 +25,7 @@
 
   users.users.arch = {
   isNormalUser = true;
-  extraGroups = [ "wheel" ];
+  extraGroups = [ "wheel" "docker" ];
   shell = pkgs.zsh;
   packages = with pkgs; [
        tree
@@ -57,9 +57,11 @@ programs.steam = {
     gnome-console
     gnome-terminal
     epiphany  # GNOME Web
+    gnome-software
   ];
   services.tailscale.enable = true; 
   services.flatpak.enable = true;
+  virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
