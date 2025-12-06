@@ -71,6 +71,15 @@ programs.steam = {
     nerd-fonts.fira-code
   ];
 
+  services.logind = {
+    settings = {
+      Login = {
+        HandleLidSwitch = "ignore";
+        HandleLidSwitchExternalPower = "ignore";
+      };
+    };
+  };
+
   # -- Hyprland Add-on --
   # This integrates the local hyprland add-on as an optional module. It will import and
   # enable only the `hyprland` and `packages` modules from `./modules/hyprland`.

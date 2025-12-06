@@ -31,6 +31,13 @@
     xdg-desktop-portal-wlr
     zip
     zoxide
+    networkmanagerapplet
+    blueman
+    networkmanager_dmenu
+    rofi
+    (python3.withPackages (ps: with ps; [ requests ]))
+    hyprlock
+    hyprshot
     ];
   };
 }

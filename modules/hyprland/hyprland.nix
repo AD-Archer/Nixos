@@ -19,6 +19,12 @@
       services.pipewire.jack.enable = true;
       services.pipewire.wireplumber.enable = true;
       services.acpid.enable = true;
+      services.acpid.lidEventCommands = ''
+        /etc/xdg/hypr/lid-lock.sh
+      '';
+
+      # Allow hyprlock to authenticate via PAM
+      security.pam.services.hyprlock = {};
 
       environment.systemPackages = with pkgs; [
         hyprpaper
@@ -52,6 +58,41 @@
         "xdg/hypr/input.conf" = { source = ./configs/xdg/hypr/input.conf; };
         "xdg/hypr/window.conf" = { source = ./configs/xdg/hypr/window.conf; };
         "xdg/hypr/windowrule.conf" = { source = ./configs/xdg/hypr/windowrule.conf; };
+        "xdg/hypr/hyprlock.conf" = { source = ./configs/xdg/hypr/hyprlock.conf; };
+        "xdg/hypr/lid-lock.sh" = {
+          source = pkgs.writeShellScript "lid-lock.sh" ''
+            USER_NAME=arch
+            USER_UID=$(id -u "$USER_NAME" 2>/dev/null) || exit 0
+            RUNTIME_DIR="/run/user/$USER_UID"
+            [ -d "$RUNTIME_DIR" ] || exit 0
+
+            # Try to read the active Hyprland session's WAYLAND_DISPLAY for reliability
+            get_wayland_display() {
+              local hypr_pid
+              hypr_pid=$(pgrep -u "$USER_NAME" -x Hyprland | head -n1)
+              if [ -n "$hypr_pid" ] && [ -r "/proc/$hypr_pid/environ" ]; then
+                tr '\0' '\n' < "/proc/$hypr_pid/environ" | sed -n 's/^WAYLAND_DISPLAY=//p' | head -n1
+              fi
+            }
+
+            WAYLAND_DISPLAY=$(get_wayland_display)
+            if [ -z "$WAYLAND_DISPLAY" ]; then
+              WAYLAND_DISPLAY=$(ls "$RUNTIME_DIR"/wayland-* 2>/dev/null | head -n1 | xargs -r basename)
+            fi
+            [ -n "$WAYLAND_DISPLAY" ] || exit 0
+
+            export XDG_RUNTIME_DIR="$RUNTIME_DIR"
+            export WAYLAND_DISPLAY
+            export PATH="/run/current-system/sw/bin:$PATH"
+
+            # Avoid spawning multiple hyprlock instances
+            pgrep -u "$USER_NAME" -x hyprlock >/dev/null 2>&1 && exit 0
+
+            # Run hyprlock as the user in the active session
+            runuser -u "$USER_NAME" -- env XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" WAYLAND_DISPLAY="$WAYLAND_DISPLAY" hyprlock
+          '';
+          mode = "0755";
+        };
 
         "xdg/waybar/config" = { source = ./configs/xdg/waybar/config.jsonc; };
         "xdg/waybar/modules.jsonc" = { source = ./configs/xdg/waybar/modules.jsonc; };

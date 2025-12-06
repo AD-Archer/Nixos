@@ -64,10 +64,10 @@
 
     "clock": {
         "interval": 1,
-        "format": "{:%H:%M:%S}",
+        "format": "{:%I:%M:%S %p}",
         "locale": "it_IT.UTF-8",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:L%a %d/%m/%y (%H:%M:%S)}",
+        "format-alt": "{:L%a %d/%m/%y (%I:%M:%S %p)}",
         "calendar": {
                     "mode"          : "month",
                     "mode-mon-col"  : 3,
@@ -138,11 +138,11 @@
     "temperature": {
         "thermal-zone": 7,
         "interval": 5,
-        "format": "{icon}{temperatureC}°C",
+        "format": "{icon}{temperatureF}°F",
         "format-icons": [" "],
         "format-alt-click": "click-right",
         "critical-threshold": 80,
-        "format-critical": " {temperatureC}°C",
+        "format-critical": " {temperatureF}°F",
         "on-click": "kitty --title btop sh -c 'btop'",
         "tooltip-format": "Temperatura CPU",
         "tooltip": true
@@ -158,6 +158,7 @@
         "format-disconnected": "Disconnesso 󰌙",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "interval": 1,
+        "on-click": "DMENU_COMMAND='rofi -dmenu' networkmanager_dmenu",
         "on-click-right": "kitty -e nmtui",
         "max-length": 30
     },
@@ -169,8 +170,8 @@
 	    "tooltip-format": "{device_alias}",
 	    "tooltip-format-connected": " {device_enumerate}",
 	    "tooltip-format-enumerate-connected": "{device_alias}",
-        "on-click": "rfkill toggle bluetooth",
-        "on-click-right": "blueman-manager"
+        "on-click": "blueman-manager",
+        "on-click-right": "rfkill toggle bluetooth"
     },
 
     "power-profiles-daemon": {
@@ -197,7 +198,7 @@
     "custom/lock_screen": {
         "format": "{icon}",        
         "format-icons": [""],
-        "on-click": "swaylock",
+        "on-click": "hyprlock",
         "tooltip-format": "Schermata di Blocco",
         "tooltip": true
     },
@@ -286,5 +287,12 @@
         "exec": "~/.config/waybar/scripts/mediaplayer.py", // Script in resources/custom_modules folder
         "tooltip": true,
         "tooltip-format": "{}"
+    },
+
+    "custom/weather": {
+        "exec": "/etc/xdg/waybar/scripts/waybar-wttr.py",
+        "return-type": "json",
+        "interval": 3600,
+        "tooltip": true
     }
 }
