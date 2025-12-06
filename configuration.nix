@@ -49,6 +49,8 @@ programs.steam = {
   services.xserver.enable = true;
   services.displayManager.gdm.enable = true;
   services.displayManager.sessionPackages = [ pkgs.hyprland ];
+  # Explicitly enable Hyprland so GDM has a launchable session and the binary is on PATH
+  programs.hyprland.enable = true;
   services.desktopManager.gnome.enable = true;
   services.desktopManager.gnome.sessionPath = [ pkgs.gpaste ];
   programs.gpaste.enable = true;

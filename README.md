@@ -18,71 +18,69 @@
 
 ## Firewall
 
-### System Utilities & Security
+### Security
 - Firewall enabled (NixOS)
-- Trusted interfaces: tailscale0
 - SSH PermitRootLogin: no
 - SSH password auth: false
 
-### Remote Access & Development
-- Allow TCP: 22 (SSH for remote administration, development access)
-- Allow TCP: 42000 (Commonly used for custom applications or development services)
+### Remote Access & Networking
+- Allow TCP: 22
+- Trusted interfaces: tailscale0
 
-### Gaming & Multimedia
-- Allow UDP ranges: UDP 1714-1764 (Associated with Steam Link and game streaming services)
+### Development
+- Allow TCP: 42000
+
+### Productivity & Device Integration
+- Allow UDP ranges: UDP 1714-1764
 
 ## System Packages
 
-Here's a categorization of the NixOS system packages:
-
 ### Development Tools & Languages
-- cargo
-- codex
-- code-cursor
-- Dev
 - gcc
-- gemini-cli
-- git
-- go
 - lazygit
-- lua
-- neovim
-- nodejs
-- nodePackages.vercel
-- pnpm
-- python3
-- rustc
 - vimPlugins.nvchad
+- gemini-cli
+- Dev
+- codex
+- nodePackages.vercel
+- code-cursor
+- git
+- neovim
+- pnpm
+- nodejs
 - vscode
+- python3
+- go
+- rustc
+- cargo
+- lua
 
-### System Utilities & Shell Tools
-- bat
-- btop
-- fastfetch
-- fzf
-- tmux
-- tools
-- zimfw
-
-### Productivity & Desktop Applications
-- bitwarden-desktop
+### Productivity & Workflow
 - gpaste
 - ulauncher
+- bitwarden-desktop
 
-### Terminal Emulators
-- kitty
-- Terminal
-
-### Networking Tools
-- curl
+### System & Command-Line Utilities
 - wget
+- kitty
+- fastfetch
+- fzf
+- Terminal
+- tools
+- tmux
+- curl
+- btop
+- bat
+- zimfw
 
-### Fun & Customization
+### Fun & Personalization
 - pokemon-colorscripts
 
 ## Flatpaks
 
-### Web Browsers
+Here's a categorization of the provided Flatpak applications:
+
+### Internet & Web Browsers
 - app.zen_browser.zen
 
 ### Communication
@@ -90,13 +88,9 @@ Here's a categorization of the NixOS system packages:
 - us.zoom.Zoom
 - com.slack.Slack
 
-### Productivity & Office
-- org.vinegarhq.Sober
-- org.gnome.Todo
-- io.github.qwersyk.Newelle
-
 ### Utilities & System Tools
 - org.kde.filelight
+- org.vinegarhq.Sober
 - com.usebottles.bottles
 - com.github.tchx84.Flatseal
 - io.gitlab.adhami3310.Impression
@@ -106,10 +100,8 @@ Here's a categorization of the NixOS system packages:
 - io.github.giantpinkrobots.flatsweep
 - io.github.realmazharhussain.GdmSettings
 
-### Graphics & Multimedia
+### Graphics & Design
 - org.gimp.GIMP
-- io.github.mhogomchungu.media-downloader
-- com.obsproject.Studio
 
 ### Gaming
 - io.mrarm.mcpelauncher
@@ -118,30 +110,50 @@ Here's a categorization of the NixOS system packages:
 - com.atlauncher.ATLauncher
 - io.github.Foldex.AdwSteamGtk
 
+### Productivity
+- org.gnome.Todo
+- io.github.qwersyk.Newelle
+
+### Multimedia & Content Creation
+- io.github.mhogomchungu.media-downloader
+- com.obsproject.Studio
+
 ## GNOME Extensions
 
 ### Productivity
-- clipboard-indicator
-- caffeine
-- ulauncher-toggle
+-   clipboard-indicator
+-   caffeine
+-   ulauncher-toggle
 
-### Utilities & System Integration
-- appindicator
-- gsconnect
-- sound-output-device-chooser
+### Utilities
+-   appindicator
+-   gsconnect
+-   sound-output-device-chooser
 
-### User Interface & Customization
-- quick-settings-tweaker
-- just-perfection
-- blur-my-shell
+### Customization
+-   quick-settings-tweaker
+-   just-perfection
+-   blur-my-shell
 
 ## Ollama Models
 - qwen2.5-coder:3b
 - hf.co/mradermacher/Dolphin3.0-Qwen2.5-0.5B-GGUF:Q8_0
 - hf.co/Qwen/Qwen2.5-Coder-1.5B-Instruct-GGUF:Q4_K_M
 - mxbai-embed-large:latest
-
 ## Daily Changes
+
+### 2025-12-06
+<!-- last_hash:77c97e4f096187141cdb9f94e86fb95c6a9ec035 -->
+
+Here are today's NixOS flake changes for 2025-12-06:
+
+*   Performed an automatic backup of the NixOS flake configuration.
+*   The backup was committed under hash `77c97e4` at 19:09:50Z.
+*   This routine operation, initiated by `ad-archer`, ensures the latest flake state is preserved.
+
+Highlight: Daily flake configuration backup completed.
+
+
 
 
 
