@@ -18,117 +18,122 @@
 
 ## Firewall
 
-### Security & Infrastructure
+### Security & System Management
 - Firewall enabled (NixOS)
-- Trusted interfaces: tailscale0
 - SSH PermitRootLogin: no
 - SSH password auth: false
-
-### Remote Access & Custom Services
+- Trusted interfaces: tailscale0
 - Allow TCP: 22
+
+### Development & Custom Applications
 - Allow TCP: 42000
 
-### Device Integration & Multimedia
+### Multimedia & Gaming
 - Allow UDP ranges: UDP 1714-1764
 
 ## System Packages
 
 Here's a categorization of the NixOS system packages:
 
-### Development Tools
--   gcc
--   git
--   go
--   cargo
--   lazygit
--   lua
--   neovim
--   vimPlugins.nvchad
--   nodejs
--   pnpm
--   python3
--   rustc
--   vscode
--   codex
--   nodePackages.vercel
--   gemini-cli
--   code-cursor
+### Development
+- gcc
+- git
+- lazygit
+- neovim
+- vimPlugins.nvchad
+- vscode
+- python3
+- go
+- rustc
+- cargo
+- lua
+- nodejs
+- pnpm
+- nodePackages.vercel
+- code-cursor
 
-### Terminal & CLI Utilities
--   bat
--   btop
--   curl
--   fastfetch
--   fzf
--   kitty
--   tmux
--   wget
--   zimfw
+### Terminal Emulators
+- kitty
+- Terminal
 
-### Desktop & Productivity
--   bitwarden-desktop
--   gpaste
--   ulauncher
+### CLI Utilities & Tools
+- wget
+- curl
+- fzf
+- tmux
+- bat
+- zimfw
+- fastfetch
+- btop
 
-### Fun & Customization
--   pokemon-colorscripts
+### Productivity & Desktop Utilities
+- gpaste
+- ulauncher
+- bitwarden-desktop
+
+### AI & LLM Tools
+- gemini-cli
+- codex
+
+### Customization & Fun
+- pokemon-colorscripts
 
 ## Flatpaks
 
-Here are the Flatpak applications categorized into logical groups:
+Here's a categorization of the provided Flatpak applications:
 
-### Browsers & Productivity
-- app.zen_browser.zen
-- io.github.qwersyk.Newelle
-- org.gnome.Todo
+### Productivity
+-   app.zen_browser.zen
+-   org.gnome.Todo
+-   io.github.qwersyk.Newelle
 
 ### Communication
-- dev.vencord.Vesktop
-- com.slack.Slack
-- us.zoom.Zoom
+-   dev.vencord.Vesktop
+-   us.zoom.Zoom
+-   com.slack.Slack
 
-### System & Utilities
-- com.github.tchx84.Flatseal
-- com.usebottles.bottles
-- io.github.giantpinkrobots.flatsweep
-- io.github.pwr_solaar.solaar
-- io.github.realmazharhussain.GdmSettings
-- io.gitlab.adhami3310.Impression
-- org.kde.filelight
-- org.gnome.Extensions
-- org.vinegarhq.Sober
-- org.x.Warpinator
+### Multimedia
+-   org.gimp.GIMP
+-   io.github.mhogomchungu.media-downloader
+-   com.obsproject.Studio
 
-### Graphics & Multimedia
-- com.obsproject.Studio
-- io.github.mhogomchungu.media-downloader
-- org.gimp.GIMP
+### Utilities
+-   org.kde.filelight
+-   com.github.tchx84.Flatseal
+-   io.gitlab.adhami3310.Impression
+-   org.gnome.Extensions
+-   io.github.pwr_solaar.solaar
+-   org.x.Warpinator
+-   io.github.giantpinkrobots.flatsweep
+-   io.github.realmazharhussain.GdmSettings
 
-### Gaming
-- com.atlauncher.ATLauncher
-- com.mojang.Minecraft
-- com.pokemmo.PokeMMO
-- io.github.Foldex.AdwSteamGtk
-- io.mrarm.mcpelauncher
+### Games
+-   com.mojang.Minecraft
+-   com.pokemmo.PokeMMO
+
+### Gaming Tools
+-   org.vinegarhq.Sober
+-   com.usebottles.bottles
+-   io.mrarm.mcpelauncher
+-   com.atlauncher.ATLauncher
+-   io.github.Foldex.AdwSteamGtk
 
 ## GNOME Extensions
 
-Here's a categorization of the GNOME extensions:
-
 ### Productivity
-- clipboard-indicator
-- caffeine
-- ulauncher-toggle
+-   clipboard-indicator
+-   gsconnect
+-   caffeine
+-   ulauncher-toggle
 
-### System Utilities & Integration
-- appindicator
-- gsconnect
-- sound-output-device-chooser
-- quick-settings-tweaker
+### Utilities & System Management
+-   appindicator
+-   sound-output-device-chooser
+-   quick-settings-tweaker
 
-### Appearance & Customization
-- just-perfection
-- blur-my-shell
+### User Interface & Customization
+-   just-perfection
+-   blur-my-shell
 
 ## Ollama Models
 - qwen2.5-coder:3b
@@ -140,8 +145,9 @@ Here's a categorization of the GNOME extensions:
 
 
 
+
 ### 2025-12-06
-<!-- last_hash:bd5fef9b798702e489c9f72c5e5542d0a2460e5a -->
+<!-- last_hash:c1f9b51ff27e4a2612e9d260130a5426d9d1af32 -->
 
 Here are today's NixOS flake changes for 2025-12-06:
 
@@ -195,6 +201,13 @@ Here's the update for your NixOS flake log:
 Here are the additional changes:
 
 *   Automated flake backup.
+
+
+#### Part 18
+
+Here's an update for your NixOS flake log:
+
+*   Performed an automatic flake backup.
 ### 2025-12-05
 
 Here's a summary of today's NixOS flake changes:
