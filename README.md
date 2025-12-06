@@ -18,119 +18,117 @@
 
 ## Firewall
 
-### Security & System Management
+### Utilities
 - Firewall enabled (NixOS)
-- SSH PermitRootLogin: no
-- SSH password auth: false
-- Allow TCP: 22 (Standard SSH access for remote administration)
+- Allow TCP: 22 (SSH for remote access and administration)
+- Trusted interfaces: tailscale0 (VPN for secure networking)
+- SSH PermitRootLogin: no (Security hardening)
+- SSH password auth: false (Security hardening)
 
-### Network Connectivity & Productivity
-- Trusted interfaces: tailscale0 (Secure mesh networking for remote access)
-- Allow UDP ranges: UDP 1714-1764 (KDE Connect for device integration)
-- Allow TCP: 42000 (Commonly used for XRDP sessions or specialized applications for remote access/work)
+### Development
+- Allow TCP: 42000 (Often used for custom application services, development servers, or specific backend processes)
+
+### Multimedia
+- Allow UDP ranges: UDP 1714-1764 (Mumble VoIP application)
 
 ## System Packages
 
 Here's a categorization of the NixOS system packages:
 
 ### Development Tools
-- `gcc`
-- `git`
-- `go`
-- `lazygit`
-- `lua`
-- `neovim`
-- `nodejs`
-- `nodePackages.vercel`
-- `pnpm`
-- `python3`
-- `rustc`
-- `cargo`
-- `vscode`
-- `vimPlugins.nvchad`
-- `codex` (assuming a development-related tool)
-- `code-cursor` (assuming a development-related tool)
+-   gcc
+-   lazygit
+-   vimPlugins.nvchad
+-   codex
+-   nodePackages.vercel
+-   code-cursor
+-   git
+-   neovim
+-   pnpm
+-   nodejs
+-   vscode
+-   python3
+-   go
+-   rustc
+-   cargo
+-   lua
 
-### System Utilities
-- `bat`
-- `btop`
-- `fastfetch`
-- `fzf`
-- `gpaste`
-- `zimfw`
-- `tools` (generic, representing general system utilities)
+### System & CLI Utilities
+-   wget
+-   kitty
+-   fastfetch
+-   gpaste
+-   ulauncher
+-   fzf
+-   tmux
+-   curl
+-   btop
+-   bat
+-   zimfw
+-   gemini-cli
 
-### Terminal Emulators & Enhancements
-- `kitty`
-- `Terminal` (generic reference to a terminal emulator)
-- `tmux`
-
-### Networking & Web Utilities
-- `curl`
-- `gemini-cli`
-- `wget`
-
-### Productivity & Desktop Utilities
-- `bitwarden-desktop`
-- `ulauncher`
+### Productivity & Security
+-   bitwarden-desktop
 
 ### Fun & Customization
-- `pokemon-colorscripts`
+-   pokemon-colorscripts
 
 ## Flatpaks
 
-Here's a categorization of the provided Flatpak applications:
+Here are the Flatpak applications categorized into logical groups:
 
-### Web Browsers
-*   app.zen_browser.zen
-
-### Communication
-*   dev.vencord.Vesktop
-*   us.zoom.Zoom
-*   com.slack.Slack
+### Internet & Communication
+- app.zen_browser.zen
+- dev.vencord.Vesktop
+- us.zoom.Zoom
+- com.slack.Slack
+- io.github.qwersyk.Newelle
 
 ### Productivity
-*   org.gnome.Todo
-*   io.github.qwersyk.Newelle
-
-### Multimedia & Graphics
-*   org.gimp.GIMP
-*   io.github.mhogomchungu.media-downloader
-*   com.obsproject.Studio
+- org.vinegarhq.Sober
+- io.gitlab.adhami3310.Impression
+- org.gnome.Todo
 
 ### Utilities & System Tools
-*   org.kde.filelight
-*   org.vinegarhq.Sober
-*   com.github.tchx84.Flatseal
-*   io.gitlab.adhami3310.Impression
-*   org.gnome.Extensions
-*   io.github.pwr_solaar.solaar
-*   org.x.Warpinator
-*   io.github.giantpinkrobots.flatsweep
-*   io.github.realmazharhussain.GdmSettings
+- org.kde.filelight
+- com.github.tchx84.Flatseal
+- org.gnome.Extensions
+- io.github.pwr_solaar.solaar
+- org.x.Warpinator
+- io.github.giantpinkrobots.flatsweep
+- io.github.realmazharhussain.GdmSettings
 
 ### Gaming
-*   com.usebottles.bottles
-*   io.mrarm.mcpelauncher
-*   com.mojang.Minecraft
-*   com.pokemmo.PokeMMO
-*   com.atlauncher.ATLauncher
-*   io.github.Foldex.AdwSteamGtk
+- com.usebottles.bottles
+- io.mrarm.mcpelauncher
+- com.mojang.Minecraft
+- com.pokemmo.PokeMMO
+- com.atlauncher.ATLauncher
+- io.github.Foldex.AdwSteamGtk
+
+### Graphics & Design
+- org.gimp.GIMP
+
+### Multimedia
+- io.github.mhogomchungu.media-downloader
+- com.obsproject.Studio
 
 ## GNOME Extensions
 
-### Productivity & Workflow
--   clipboard-indicator
--   gsconnect
--   caffeine
--   ulauncher-toggle
+### Productivity
+- clipboard-indicator
+- caffeine
+- ulauncher-toggle
+- gsconnect
 
-### System & UI Utilities
--   appindicator
--   sound-output-device-chooser
--   quick-settings-tweaker
--   just-perfection
--   blur-my-shell
+### Utilities & System Tools
+- appindicator
+- sound-output-device-chooser
+
+### User Interface & Customization
+- quick-settings-tweaker
+- just-perfection
+- blur-my-shell
 
 ## Ollama Models
 - qwen2.5-coder:3b
@@ -139,6 +137,7 @@ Here's a categorization of the provided Flatpak applications:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
 
 
 
@@ -286,3 +285,12 @@ Here's a brief summary of the changes for today's NixOS flake log:
 *   Switched to the NixOS default firewall, renaming `ufw.nix` to `firewall.nix`.
 *   Ensured the backup service has `bash` and `git` in its PATH for proper operation.
 *   Numerous automatic and manual backup checkpoints were recorded throughout the day.
+
+
+#### Part 15
+
+Here are the additional changes for today's NixOS flake log:
+
+*   Switched to the NixOS default firewall, renaming `ufw.nix` to `firewall.nix`.
+*   Ensured the backup service has `bash` and `git` in its `PATH`.
+*   Numerous automatic backups reflect continuous development throughout the day.
