@@ -67,6 +67,10 @@ programs.steam = {
 
   nixpkgs.config.allowUnfree = true;
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+  ];
+
   # -- Hyprland Add-on --
   # This integrates the local hyprland add-on as an optional module. It will import and
   # enable only the `hyprland` and `packages` modules from `./modules/hyprland`.

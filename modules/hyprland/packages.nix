@@ -19,8 +19,12 @@
     tldr
     unzip
     openssl
+    swaylock
     openssl.dev
     pkg-config
+    waybar
+    waypaper
+    hyprpaper
     wget
     xfce.thunar
     xdg-desktop-portal-gtk

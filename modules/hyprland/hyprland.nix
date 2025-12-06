@@ -2,33 +2,48 @@
 
 # Minimal Hyprland module copied from temp flake; cleaned to avoid changing DMs or users
 {
-  config = (lib.mkIf config.hyprlandAddon.enable {
-    # If the wrapper sets programs.hyprland, keep it in that module.
-    # `hyprlandAddon` imports this module only when the add-on is enabled.
-    programs.hyprland = {
-      enable = true;
-      # safe defaults copied from main configuration; these do not enable DMs or users
-      xwayland.enable = true;
-      withUWSM = false;
-    };
+  config = lib.mkMerge [
+    (lib.mkIf config.hyprlandAddon.enable {
+      # If the wrapper sets programs.hyprland, keep it in that module.
+      # `hyprlandAddon` imports this module only when the add-on is enabled.
+      programs.hyprland = {
+        enable = true;
+        # safe defaults copied from main configuration; these do not enable DMs or users
+        xwayland.enable = true;
+        withUWSM = false;
+      };
+      services.pipewire.enable = true;
+      services.pipewire.alsa.enable = true;
+      services.pipewire.alsa.support32Bit = true;
+      services.pipewire.pulse.enable = true;
+      services.pipewire.jack.enable = true;
+      services.pipewire.wireplumber.enable = true;
+      services.acpid.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      hyprpaper
-      kitty
-      libnotify
-      mako
-      python3
-      python3Packages.requests
-      qt5.qtwayland
-      qt6.qtwayland
-      swayidle
-      swaylock-effects
-      wlogout
-      wl-clipboard
-      wofi
-      waybar
-    ];
-  }) // (lib.mkIf (config.hyprlandAddon.enable && config.hyprlandAddon.deploySystemConfigs) {
+      environment.systemPackages = with pkgs; [
+        hyprpaper
+        kitty
+        libnotify
+        mako
+        python3
+        python3Packages.requests
+        python3Packages.pip
+        qt5.qtwayland
+        qt6.qtwayland
+        swayidle
+        swaylock-effects
+        wlogout
+        wl-clipboard
+        wofi
+        waybar
+        waypaper
+        playerctl
+        brightnessctl
+        pamixer
+        pavucontrol
+      ];
+    })
+    (lib.mkIf (config.hyprlandAddon.enable && config.hyprlandAddon.deploySystemConfigs) {
       environment.etc = {
         "xdg/hypr/hyprland.conf" = { source = ./configs/xdg/hypr/hyprland.conf; };
         "xdg/hypr/bind.conf" = { source = ./configs/xdg/hypr/bind.conf; };
@@ -38,9 +53,9 @@
         "xdg/hypr/window.conf" = { source = ./configs/xdg/hypr/window.conf; };
         "xdg/hypr/windowrule.conf" = { source = ./configs/xdg/hypr/windowrule.conf; };
 
-        "xdg/waybar/config" = { source = ./configs/xdg/waybar/config; };
+        "xdg/waybar/config" = { source = ./configs/xdg/waybar/config.jsonc; };
+        "xdg/waybar/modules.jsonc" = { source = ./configs/xdg/waybar/modules.jsonc; };
         "xdg/waybar/style.css" = { source = ./configs/xdg/waybar/style.css; };
-        "xdg/waybar/scripts/waybar-wttr.py" = { source = ./configs/xdg/waybar/scripts/waybar-wttr.py; mode = "0755"; };
 
         "xdg/wofi/style.css" = { source = ./configs/xdg/wofi/style.css; };
 
@@ -59,5 +74,6 @@
         "xdg/sway/swayidle" = { source = ./configs/xdg/sway/swayidle; };
         "xdg/sway/swaylock" = { source = ./configs/xdg/sway/swaylock; };
       };
-    });
+    })
+  ];
 }
