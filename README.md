@@ -18,100 +18,105 @@
 
 ## Firewall
 
-### Utilities
+### System Utilities & Security
 - Firewall enabled (NixOS)
-- Allow TCP: 22 (SSH for remote access and administration)
-- Trusted interfaces: tailscale0 (VPN for secure networking)
-- SSH PermitRootLogin: no (Security hardening)
-- SSH password auth: false (Security hardening)
+- Trusted interfaces: tailscale0
+- SSH PermitRootLogin: no
+- SSH password auth: false
 
-### Development
-- Allow TCP: 42000 (Often used for custom application services, development servers, or specific backend processes)
+### Remote Access & Development
+- Allow TCP: 22 (SSH for remote administration, development access)
+- Allow TCP: 42000 (Commonly used for custom applications or development services)
 
-### Multimedia
-- Allow UDP ranges: UDP 1714-1764 (Mumble VoIP application)
+### Gaming & Multimedia
+- Allow UDP ranges: UDP 1714-1764 (Associated with Steam Link and game streaming services)
 
 ## System Packages
 
 Here's a categorization of the NixOS system packages:
 
-### Development Tools
--   gcc
--   lazygit
--   vimPlugins.nvchad
--   codex
--   nodePackages.vercel
--   code-cursor
--   git
--   neovim
--   pnpm
--   nodejs
--   vscode
--   python3
--   go
--   rustc
--   cargo
--   lua
+### Development Tools & Languages
+- cargo
+- codex
+- code-cursor
+- Dev
+- gcc
+- gemini-cli
+- git
+- go
+- lazygit
+- lua
+- neovim
+- nodejs
+- nodePackages.vercel
+- pnpm
+- python3
+- rustc
+- vimPlugins.nvchad
+- vscode
 
-### System & CLI Utilities
--   wget
--   kitty
--   fastfetch
--   gpaste
--   ulauncher
--   fzf
--   tmux
--   curl
--   btop
--   bat
--   zimfw
--   gemini-cli
+### System Utilities & Shell Tools
+- bat
+- btop
+- fastfetch
+- fzf
+- tmux
+- tools
+- zimfw
 
-### Productivity & Security
--   bitwarden-desktop
+### Productivity & Desktop Applications
+- bitwarden-desktop
+- gpaste
+- ulauncher
+
+### Terminal Emulators
+- kitty
+- Terminal
+
+### Networking Tools
+- curl
+- wget
 
 ### Fun & Customization
--   pokemon-colorscripts
+- pokemon-colorscripts
 
 ## Flatpaks
 
-Here are the Flatpak applications categorized into logical groups:
-
-### Internet & Communication
+### Web Browsers
 - app.zen_browser.zen
+
+### Communication
 - dev.vencord.Vesktop
 - us.zoom.Zoom
 - com.slack.Slack
-- io.github.qwersyk.Newelle
 
-### Productivity
+### Productivity & Office
 - org.vinegarhq.Sober
-- io.gitlab.adhami3310.Impression
 - org.gnome.Todo
+- io.github.qwersyk.Newelle
 
 ### Utilities & System Tools
 - org.kde.filelight
+- com.usebottles.bottles
 - com.github.tchx84.Flatseal
+- io.gitlab.adhami3310.Impression
 - org.gnome.Extensions
 - io.github.pwr_solaar.solaar
 - org.x.Warpinator
 - io.github.giantpinkrobots.flatsweep
 - io.github.realmazharhussain.GdmSettings
 
+### Graphics & Multimedia
+- org.gimp.GIMP
+- io.github.mhogomchungu.media-downloader
+- com.obsproject.Studio
+
 ### Gaming
-- com.usebottles.bottles
 - io.mrarm.mcpelauncher
 - com.mojang.Minecraft
 - com.pokemmo.PokeMMO
 - com.atlauncher.ATLauncher
 - io.github.Foldex.AdwSteamGtk
-
-### Graphics & Design
-- org.gimp.GIMP
-
-### Multimedia
-- io.github.mhogomchungu.media-downloader
-- com.obsproject.Studio
 
 ## GNOME Extensions
 
@@ -119,10 +124,10 @@ Here are the Flatpak applications categorized into logical groups:
 - clipboard-indicator
 - caffeine
 - ulauncher-toggle
-- gsconnect
 
-### Utilities & System Tools
+### Utilities & System Integration
 - appindicator
+- gsconnect
 - sound-output-device-chooser
 
 ### User Interface & Customization
@@ -137,6 +142,7 @@ Here are the Flatpak applications categorized into logical groups:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
 
 
 
