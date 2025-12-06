@@ -18,27 +18,27 @@
 
 ## Firewall
 
-### Security & System Administration
+### System Utilities & Security
 - Firewall enabled (NixOS)
-- Allow TCP: 22 (SSH for secure remote access and administration)
-- Trusted interfaces: tailscale0 (Secure network for remote administration and access)
-- SSH PermitRootLogin: no (Security best practice for SSH access)
-- SSH password auth: false (Security best practice for SSH access, preferring key-based authentication)
+- SSH PermitRootLogin: no
+- SSH password auth: false
 
-### Development
-- Allow TCP: 22 (SSH for remote development environments)
-- Allow TCP: 42000 (Specific port for development tools like `direnv` or `kitty` TUI)
+### Remote Access & Secure Networking
+- Allow TCP: 22
+- Trusted interfaces: tailscale0
 
-### Productivity & Inter-device Connectivity
-- Allow UDP ranges: UDP 1714-1764 (KDE Connect for device integration and productivity features)
+### Development & Application Services
+- Allow TCP: 42000
+
+### Productivity & Inter-Device Communication
+- Allow UDP ranges: UDP 1714-1764
 
 ## System Packages
 
-### Development
+### Development Tools & Languages
 -   gcc
 -   lazygit
 -   vimPlugins.nvchad
--   Dev
 -   codex
 -   nodePackages.vercel
 -   code-cursor
@@ -53,18 +53,13 @@
 -   cargo
 -   lua
 
-### Productivity
--   gpaste
--   ulauncher
--   bitwarden-desktop
-
-### Utilities
+### System Utilities & Shell Tools
 -   wget
 -   kitty
 -   fastfetch
+-   gpaste
+-   ulauncher
 -   fzf
--   Terminal
--   tools
 -   tmux
 -   curl
 -   btop
@@ -72,28 +67,34 @@
 -   zimfw
 -   gemini-cli
 
-### Customization & Fun
+### Security & Privacy
+-   bitwarden-desktop
+
+### Fun & Customization
 -   pokemon-colorscripts
 
 ## Flatpaks
 
-### Internet & Communication
+Here are the Flatpak applications categorized into logical groups:
+
+### Web Browsers
 - app.zen_browser.zen
+
+### Communication
 - dev.vencord.Vesktop
 - us.zoom.Zoom
 - com.slack.Slack
 
-### Productivity
-- org.gnome.Todo
-- io.github.qwersyk.Newelle
-
-### Multimedia & Graphics
+### Graphics & Photography
 - org.gimp.GIMP
+
+### Multimedia & Streaming
+- org.vinegarhq.Sober
 - io.github.mhogomchungu.media-downloader
+- io.github.qwersyk.Newelle
 - com.obsproject.Studio
 
 ### Gaming
-- org.vinegarhq.Sober
 - com.usebottles.bottles
 - io.mrarm.mcpelauncher
 - com.mojang.Minecraft
@@ -101,7 +102,10 @@
 - com.atlauncher.ATLauncher
 - io.github.Foldex.AdwSteamGtk
 
-### Utilities & System Tools
+### Productivity
+- org.gnome.Todo
+
+### Utilities
 - org.kde.filelight
 - com.github.tchx84.Flatseal
 - io.gitlab.adhami3310.Impression
@@ -114,19 +118,19 @@
 ## GNOME Extensions
 
 ### Productivity
--   clipboard-indicator
--   caffeine
--   ulauncher-toggle
+- clipboard-indicator
+- caffeine
+- ulauncher-toggle
 
-### Utilities & System Integration
--   appindicator
--   gsconnect
--   sound-output-device-chooser
+### Utilities
+- appindicator
+- gsconnect
+- sound-output-device-chooser
 
-### Customization & Enhancements
--   quick-settings-tweaker
--   just-perfection
--   blur-my-shell
+### System & Visual Customization
+- quick-settings-tweaker
+- just-perfection
+- blur-my-shell
 
 ## Ollama Models
 - qwen2.5-coder:3b
@@ -140,8 +144,9 @@
 
 
 
+
 ### 2025-12-06
-<!-- last_hash:830b4d344775e9908744239162a3bfa05b3e51b9 -->
+<!-- last_hash:3a2be03a4b243a555b1b1e1ee60e3f484451ed93 -->
 
 Here are today's NixOS flake changes for 2025-12-06:
 
@@ -209,6 +214,13 @@ Here's an update for your NixOS flake log:
 Here's an update for today's NixOS flake log:
 
 *   Automated flake backup.
+
+
+#### Part 20
+
+Here's an update for your NixOS flake log:
+
+*   Performed an automatic backup of the flake configuration.
 ### 2025-12-05
 
 Here's a summary of today's NixOS flake changes:
