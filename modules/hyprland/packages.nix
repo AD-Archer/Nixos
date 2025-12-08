@@ -34,6 +34,7 @@
     networkmanagerapplet
     blueman
     networkmanager_dmenu
+    feishin
     rofi
     (python3.withPackages (ps: with ps; [ requests ]))
     hyprlock
