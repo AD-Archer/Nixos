@@ -111,6 +111,7 @@
         "tooltip": true,
         "format-muted": "",
         "on-click": "pamixer -t",
+        "on-click-right": "pavucontrol", // quick device picker/UI
         "on-scroll-up": "pamixer -i 5",
         "on-scroll-down": "pamixer -d 5",
         "scroll-step": 5,

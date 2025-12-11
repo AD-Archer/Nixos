@@ -18,56 +18,54 @@
 
 ## Firewall
 
+### System Security & Administration
 - Firewall enabled (NixOS)
-- Allow TCP: 22, 42000
-- Allow UDP ranges: UDP 1714-1764
 - Trusted interfaces: tailscale0
 - SSH PermitRootLogin: no
 - SSH password auth: false
+- Allow TCP: 22 (SSH for secure remote administration)
+
+### Application Services & Custom Ports
+- Allow TCP: 42000 (Custom application or development service port)
+
+### Productivity & Device Integration
+- Allow UDP ranges: UDP 1714-1764 (KDE Connect for cross-device integration)
 
 ## System Packages
 
-Here's a categorization of the NixOS system packages:
-
-### Development Tools & Languages
-- cargo
-- codex
-- code-cursor
-- gcc
-- git
-- go
-- lazygit
-- lua
-- neovim
-- nodejs
-- nodePackages.vercel
-- pnpm
-- python3
-- rustc
-- vimPlugins.nvchad
-- vscode
-
-### Command-line Utilities
-- bat
-- btop
-- curl
-- fastfetch
-- fzf
-- gemini-cli
-- tmux
 - wget
-- zimfw
-
-### Productivity
-- bitwarden-desktop
+- kitty
+- gcc
+- fastfetch
 - gpaste
 - ulauncher
-
-### Terminal Emulators
-- kitty
-
-### Aesthetics & Fun
 - pokemon-colorscripts
+- fzf
+- bitwarden-desktop
+- Terminal
+- tools
+- tmux
+- curl
+- btop
+- bat
+- lazygit
+- vimPlugins.nvchad
+- zimfw
+- gemini-cli
+- Dev
+- codex
+- nodePackages.vercel
+- code-cursor
+- git
+- neovim
+- pnpm
+- nodejs
+- vscode
+- python3
+- go
+- rustc
+- cargo
+- lua
 
 ## Flatpaks
 
@@ -112,20 +110,19 @@ Here's a categorization of the NixOS system packages:
 
 ## GNOME Extensions
 
-- Essential
-- extensions
-- (verified
-- names)
-- appindicator
+### Productivity
 - clipboard-indicator
-- gsconnect
-- sound-output-device-chooser
-- Popular
-- productivity
 - caffeine
 - ulauncher-toggle
-- Working
-- alternatives
+
+### Utilities
+- appindicator
+- sound-output-device-chooser
+
+### Connectivity
+- gsconnect
+
+### System Customization
 - quick-settings-tweaker
 - just-perfection
 - blur-my-shell
@@ -135,8 +132,21 @@ Here's a categorization of the NixOS system packages:
 - hf.co/mradermacher/Dolphin3.0-Qwen2.5-0.5B-GGUF:Q8_0
 - hf.co/Qwen/Qwen2.5-Coder-1.5B-Instruct-GGUF:Q4_K_M
 - mxbai-embed-large:latest
-
 ## Daily Changes
+
+### 2025-12-11
+<!-- last_hash:88d7631f4092473114f0fb5e3a76a947d46330cc -->
+
+Here are today's NixOS flake changes:
+
+*   Daily updates for the NixOS flake have been logged.
+*   An automated backup of the flake configuration was performed.
+*   The backup snapshot corresponds to 2025-12-11 at 18:08:54Z UTC.
+*   This automatic backup commit was initiated by 'ad-archer'.
+
+Highlight: Daily NixOS flake auto-backup completed.
+
+
 
 
 

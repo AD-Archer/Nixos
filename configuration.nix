@@ -6,6 +6,7 @@
   ./hardware-configuration.nix
   ./apps/firewall.nix
   ./modules/hyprland-addon.nix
+    ./nix.nix
   ]; 
 
 
