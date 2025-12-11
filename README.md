@@ -18,122 +18,114 @@
 
 ## Firewall
 
-Here's a categorization of your Firewall configuration and SSH access settings:
-
-### Security & System Administration
 - Firewall enabled (NixOS)
+- Allow TCP: 22, 42000
+- Allow UDP ranges: UDP 1714-1764
+- Trusted interfaces: tailscale0
 - SSH PermitRootLogin: no
 - SSH password auth: false
-
-### Networking & Remote Access
-- Allow TCP: 22 (for SSH remote access)
-- Trusted interfaces: tailscale0
-
-### Productivity & Inter-device Communication
-- Allow UDP ranges: UDP 1714-1764 (commonly used by KDE Connect)
-
-### Custom Services & Development
-- Allow TCP: 42000
 
 ## System Packages
 
 Here's a categorization of the NixOS system packages:
 
-### Development
-- gcc
-- lazygit
-- vimPlugins.nvchad
-- codex
-- nodePackages.vercel
-- code-cursor
-- git
-- neovim
-- pnpm
-- nodejs
-- vscode
-- python3
-- go
-- rustc
+### Development Tools & Languages
 - cargo
+- codex
+- code-cursor
+- gcc
+- git
+- go
+- lazygit
 - lua
+- neovim
+- nodejs
+- nodePackages.vercel
+- pnpm
+- python3
+- rustc
+- vimPlugins.nvchad
+- vscode
 
-### Productivity
-- gpaste
-- ulauncher
-- bitwarden-desktop
-
-### Utilities
-- wget
-- fastfetch
-- curl
-- btop
-- gemini-cli
-
-### Terminal & Shell Tools
-- kitty
-- fzf
-- tmux
+### Command-line Utilities
 - bat
+- btop
+- curl
+- fastfetch
+- fzf
+- gemini-cli
+- tmux
+- wget
 - zimfw
 
-### Customization & Fun
+### Productivity
+- bitwarden-desktop
+- gpaste
+- ulauncher
+
+### Terminal Emulators
+- kitty
+
+### Aesthetics & Fun
 - pokemon-colorscripts
 
 ## Flatpaks
 
-Here's a categorization of the provided Flatpak applications:
-
-### Web Browsers
 - app.zen_browser.zen
-
-### Communication & Social
 - dev.vencord.Vesktop
-- us.zoom.Zoom
-- com.slack.Slack
-
-### Gaming
-- io.mrarm.mcpelauncher
-- com.mojang.Minecraft
-- com.pokemmo.PokeMMO
-- com.atlauncher.ATLauncher
-- io.github.Foldex.AdwSteamGtk
-
-### Graphics & Design
-- org.gimp.GIMP
-
-### Multimedia & Entertainment
-- com.obsproject.Studio
-- io.github.mhogomchungu.media-downloader
-- io.github.qwersyk.Newelle
-
-### Productivity & Task Management
-- org.vinegarhq.Sober
-- org.gnome.Todo
-
-### System & Utility Tools
 - org.kde.filelight
+- org.vinegarhq.Sober
 - com.usebottles.bottles
 - com.github.tchx84.Flatseal
+- org.gimp.GIMP
+- us.zoom.Zoom
 - io.gitlab.adhami3310.Impression
+- io.mrarm.mcpelauncher
+- com.mojang.Minecraft
 - org.gnome.Extensions
+- com.slack.Slack
 - io.github.pwr_solaar.solaar
 - org.x.Warpinator
 - io.github.giantpinkrobots.flatsweep
 - io.github.realmazharhussain.GdmSettings
+- org.gnome.Todo
+- com.pokemmo.PokeMMO
+- io.github.mhogomchungu.media-downloader
+- com.atlauncher.ATLauncher
+- io.github.qwersyk.Newelle
+- io.github.Foldex.AdwSteamGtk
+- com.obsproject.Studio
+- Session
+- Bus
+- Policy.org.freedesktop.Flatpak
+- talk;
+- };
+- };
+- services.flatpak.uninstallUnmanaged
+- true;
+- Removes
+- undeclared
+- apps
+- on
+- rebuild
+- }
 
 ## GNOME Extensions
 
-### Productivity
-- clipboard-indicator
-- caffeine
-- ulauncher-toggle
-
-### System Tools & Integration
+- Essential
+- extensions
+- (verified
+- names)
 - appindicator
+- clipboard-indicator
 - gsconnect
 - sound-output-device-chooser
-
-### Customization & UI
+- Popular
+- productivity
+- caffeine
+- ulauncher-toggle
+- Working
+- alternatives
 - quick-settings-tweaker
 - just-perfection
 - blur-my-shell
@@ -145,6 +137,7 @@ Here's a categorization of the provided Flatpak applications:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
 
 
 

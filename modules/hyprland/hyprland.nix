@@ -66,6 +66,21 @@
             RUNTIME_DIR="/run/user/$USER_UID"
             [ -d "$RUNTIME_DIR" ] || exit 0
 
+            should_lock_for_lid() {
+              local lid_state_file state
+              lid_state_file=$(find /proc/acpi/button -path '*/state' -type f 2>/dev/null | head -n1)
+              if [ -n "$lid_state_file" ]; then
+                state=$(awk '{print $2}' "$lid_state_file" 2>/dev/null | tr '[:upper:]' '[:lower:]')
+                if [ "$state" = "open" ]; then
+                  return 1
+                fi
+              fi
+              return 0
+            }
+
+            # Ignore lid-open events so we do not immediately re-lock after resume
+            should_lock_for_lid || exit 0
+
             # Try to read the active Hyprland session's WAYLAND_DISPLAY for reliability
             get_wayland_display() {
               local hypr_pid
