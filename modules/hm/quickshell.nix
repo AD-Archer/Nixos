@@ -3,9 +3,10 @@ let
   cfg = config.quickshell;
   quickshellConfig = pkgs.runCommandLocal "quickshell-config" { } ''
     mkdir -p $out
-    cp -r ${inputs.illogical-impulse-dotfiles}/.config/quickshell/* $out/
-    cp ${./quickshell/Appearance.qml} $out/ii/modules/common/Appearance.qml
+    cp -r --no-preserve=mode,ownership ${inputs.illogical-impulse-dotfiles}/.config/quickshell/* $out/
     chmod -R u+rwX $out
+    mkdir -p $out/ii/modules/common
+    install -m644 -T ${./quickshell/Appearance.qml} $out/ii/modules/common/Appearance.qml
   '';
 in {
   options.quickshell.enable = lib.mkEnableOption "Enable QuickShell bar setup";
@@ -46,6 +47,11 @@ in {
       kdePackages.qtvirtualkeyboard
       kdePackages.qtwayland
       kdePackages.syntax-highlighting
+      # Fonts for icons/text used by the QuickShell theme
+      material-symbols
+      google-fonts
+      nerd-fonts.space-mono
+      nerd-fonts.jetbrains-mono
     ];
 
     xdg.configFile."quickshell".source = quickshellConfig;
