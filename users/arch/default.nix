@@ -1,11 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, osConfig ? {}, ... }:
+
+let
+  hyprAddonEnabled = (osConfig ? hyprlandAddon) && (osConfig.hyprlandAddon.enable or false);
+in
 
 {
   imports = [
-    ../../modules/hm/quickshell.nix
+    ../../modules/quickshell/quickshell.nix
   ];
 
-  quickshell.enable = true;
+  quickshell.enable = hyprAddonEnabled;
 
   # Home Manager settings
   home.stateVersion = "25.11"; # Pin to a specific version for stability
@@ -41,6 +45,7 @@
     shellAliases = {
       ll = "ls -l";
       cd = "z"; 
+      oc = "opencode";
       claer = "clear";
       rebuild = "cd /etc/nixos && sudo nixos-rebuild switch";
     };

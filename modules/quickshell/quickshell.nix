@@ -12,18 +12,8 @@ in {
   options.quickshell.enable = lib.mkEnableOption "Enable QuickShell bar setup";
 
   config = lib.mkIf cfg.enable {
-    gtk = {
-      enable = true;
-      iconTheme = {
-        package = pkgs.adwaita-icon-theme;
-        name = "Adwaita";
-      };
-    };
-
-    qt = {
-      enable = true;
-      platformTheme.name = "kde";
-    };
+    # GTK/Qt are handled by the user's session or system configuration.
+    # Keep only Home Manager settings below.
 
     home.sessionVariables = {
       ILLOGICAL_IMPULSE_VIRTUAL_ENV = "~/.local/state/quickshell/.venv";

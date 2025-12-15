@@ -25,7 +25,6 @@
     waypaper
     hyprpaper
     wget
-    xfce.thunar
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
     zip
@@ -37,7 +36,16 @@
     rofi
     (python3.withPackages (ps: with ps; [ requests ]))
     hyprlock
+    hypridle
     hyprshot
+    # Clipboard manager (copy/paste history)
+    copyq
+
+    # Mail client
+    thunderbird
+
+    # GNOME keyring (secrets/ssh integration)
+    gnome-keyring
     ];
   };
 }

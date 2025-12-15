@@ -6,7 +6,7 @@
   ./hardware-configuration.nix
   ./apps/firewall.nix
   ./modules/hyprland-addon.nix
-    ./nix.nix
+  ./nix.nix
   ]; 
 
 
@@ -69,7 +69,13 @@ programs.steam = {
     gnome-terminal
     epiphany  # GNOME Web
     gnome-software
+    # Exclude GNOME apps we prefer not to use under Hyprland
+    gnome-calendar
+    gnome-maps
   ];
+
+  # Ensure PAM has a service entry for gnome-keyring so login unlocks the login keyring
+  security.pam.services.gnome-keyring = {};
   services.tailscale.enable = true; 
   services.flatpak.enable = true;
   virtualisation.docker.enable = true;
@@ -83,8 +89,12 @@ programs.steam = {
   services.logind = {
     settings = {
       Login = {
-        HandleLidSwitch = "ignore";
-        HandleLidSwitchExternalPower = "ignore";
+        # Let logind handle lid close so the machine actually sleeps,
+        # and hypridle can run its before/after sleep hooks reliably.
+        HandleLidSwitch = "suspend";
+        HandleLidSwitchExternalPower = "suspend";
+        # Common default: do not suspend when docked/closed with external display.
+        HandleLidSwitchDocked = "ignore";
       };
     };
   };

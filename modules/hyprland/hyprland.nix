@@ -23,6 +23,16 @@
         /etc/xdg/hypr/lid-lock.sh
       '';
 
+      # Start hypridle in the user session to manage idle locking and suspend hooks
+      systemd.user.services.hypridle = {
+        description = "Hyprland idle daemon (hypridle)";
+        wantedBy = [ "graphical-session.target" ];
+        serviceConfig = {
+          ExecStart = "${pkgs.hypridle}/bin/hypridle --config /etc/xdg/hypr/hypridle.conf";
+          Restart = "always";
+        };
+      };
+
       # Allow hyprlock to authenticate via PAM
       security.pam.services.hyprlock = {};
 
@@ -57,6 +67,7 @@
         "xdg/hypr/window.conf" = { source = ./configs/xdg/hypr/window.conf; };
         "xdg/hypr/windowrule.conf" = { source = ./configs/xdg/hypr/windowrule.conf; };
         "xdg/hypr/hyprlock.conf" = { source = ./configs/xdg/hypr/hyprlock.conf; };
+        "xdg/hypr/hypridle.conf" = { source = ./configs/xdg/hypr/hypridle.conf; };
         "xdg/hypr/lid-lock.sh" = {
           source = pkgs.writeShellScript "lid-lock.sh" ''
             USER_NAME=arch
@@ -98,11 +109,25 @@
             export WAYLAND_DISPLAY
             export PATH="/run/current-system/sw/bin:$PATH"
 
-            # Avoid spawning multiple hyprlock instances
-            pgrep -u "$USER_NAME" -x hyprlock >/dev/null 2>&1 && exit 0
+            # IMPORTANT:
+            # `loginctl lock-session` generally does NOT launch hyprlock in Hyprland.
+            # So for lid-close we launch hyprlock directly (non-blocking), and also
+            # best-effort notify logind about locking.
 
-            # Run hyprlock as the user in the active session
-            runuser -u "$USER_NAME" -- env XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" WAYLAND_DISPLAY="$WAYLAND_DISPLAY" hyprlock
+            # Avoid spawning multiple hyprlock instances
+            pgrep -u "$USER_NAME" -x hyprlock >/dev/null 2>&1 && {
+              logger -t lid-lock.sh "hyprlock already running for $USER_NAME; not starting a new one"
+              exit 0
+            }
+
+            logger -t lid-lock.sh "Launching hyprlock for $USER_NAME (lid close)"
+            runuser -u "$USER_NAME" -- env XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" WAYLAND_DISPLAY="$WAYLAND_DISPLAY" hyprlock &
+
+            # Best-effort: notify logind too
+            sessions=$(loginctl list-sessions --no-legend | awk -v u="$USER_NAME" '$3==u{print $1}')
+            for s in $sessions; do
+              loginctl lock-session "$s" || true
+            done
           '';
           mode = "0755";
         };
