@@ -40,7 +40,6 @@
         swaylock-effects
         wlogout
         wl-clipboard
-        wofi
         waypaper
         playerctl
         brightnessctl
