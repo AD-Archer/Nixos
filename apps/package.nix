@@ -32,6 +32,7 @@
     nodejs
     vscode
     python3
+    opencode
     go
     rustc
     cargo

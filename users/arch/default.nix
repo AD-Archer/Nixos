@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ../../modules/hm/quickshell.nix
+  ];
+
+  quickshell.enable = true;
+
   # Home Manager settings
   home.stateVersion = "25.11"; # Pin to a specific version for stability
 

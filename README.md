@@ -18,18 +18,12 @@
 
 ## Firewall
 
-### System Security & Administration
 - Firewall enabled (NixOS)
+- Allow TCP: 22, 42000
+- Allow UDP ranges: UDP 1714-1764
 - Trusted interfaces: tailscale0
 - SSH PermitRootLogin: no
 - SSH password auth: false
-- Allow TCP: 22 (SSH for secure remote administration)
-
-### Application Services & Custom Ports
-- Allow TCP: 42000 (Custom application or development service port)
-
-### Productivity & Device Integration
-- Allow UDP ranges: UDP 1714-1764 (KDE Connect for cross-device integration)
 
 ## System Packages
 
@@ -62,6 +56,7 @@
 - nodejs
 - vscode
 - python3
+- opencode
 - go
 - rustc
 - cargo
@@ -110,19 +105,20 @@
 
 ## GNOME Extensions
 
-### Productivity
+- Essential
+- extensions
+- (verified
+- names)
+- appindicator
 - clipboard-indicator
+- gsconnect
+- sound-output-device-chooser
+- Popular
+- productivity
 - caffeine
 - ulauncher-toggle
-
-### Utilities
-- appindicator
-- sound-output-device-chooser
-
-### Connectivity
-- gsconnect
-
-### System Customization
+- Working
+- alternatives
 - quick-settings-tweaker
 - just-perfection
 - blur-my-shell
@@ -132,7 +128,10 @@
 - hf.co/mradermacher/Dolphin3.0-Qwen2.5-0.5B-GGUF:Q8_0
 - hf.co/Qwen/Qwen2.5-Coder-1.5B-Instruct-GGUF:Q4_K_M
 - mxbai-embed-large:latest
+
 ## Daily Changes
+
+
 
 ### 2025-12-11
 <!-- last_hash:88d7631f4092473114f0fb5e3a76a947d46330cc -->

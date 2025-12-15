@@ -22,7 +22,6 @@
     swaylock
     openssl.dev
     pkg-config
-    waybar
     waypaper
     hyprpaper
     wget

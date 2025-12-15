@@ -41,7 +41,6 @@
         wlogout
         wl-clipboard
         wofi
-        waybar
         waypaper
         playerctl
         brightnessctl
@@ -108,10 +107,6 @@
           '';
           mode = "0755";
         };
-
-        "xdg/waybar/config" = { source = ./configs/xdg/waybar/config.jsonc; };
-        "xdg/waybar/modules.jsonc" = { source = ./configs/xdg/waybar/modules.jsonc; };
-        "xdg/waybar/style.css" = { source = ./configs/xdg/waybar/style.css; };
 
         "xdg/wofi/style.css" = { source = ./configs/xdg/wofi/style.css; };
 

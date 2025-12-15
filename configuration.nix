@@ -16,6 +16,14 @@
   networking.hostName = "hypr";
   networking.networkmanager.enable = true;
 
+  # Let PipeWire own audio; legacy Pulseaudio daemon stays off. (sound.enable is deprecated.)
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+
   time.timeZone = "America/New_York";
   services.getty.autologinUser = "arch";
   

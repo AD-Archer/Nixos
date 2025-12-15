@@ -18,6 +18,23 @@
         "type": "github"
       }
     },
+    "illogical-impulse-dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1755087685,
+        "narHash": "sha256-l3U/aTwHGxdZgGfs6m8w8keJMTmngZ/aTV0i/5soZVQ=",
+        "owner": "xBLACKICEx",
+        "repo": "dots-hyprland",
+        "rev": "ef1e161c230a6aef92b981aa9066ce21a255da66",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xBLACKICEx",
+        "ref": "tmp",
+        "repo": "dots-hyprland",
+        "type": "github"
+      }
+    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1754777568,
@@ -64,11 +81,33 @@
         "type": "indirect"
       }
     },
+    "quickshell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764663772,
+        "narHash": "sha256-sHqLmm0wAt3PC4vczJeBozI1/f4rv9yp3IjkClHDXDs=",
+        "ref": "refs/heads/master",
+        "rev": "26531fc46ef17e9365b03770edd3fb9206fcb460",
+        "revCount": 713,
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "illogical-impulse-dotfiles": "illogical-impulse-dotfiles",
         "nix-flatpak": "nix-flatpak",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "quickshell": "quickshell"
       }
     }
   },
