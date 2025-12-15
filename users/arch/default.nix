@@ -15,8 +15,7 @@
     ".config/kitty".source = ../../dotfiles/kitty;
     ".config/nvim".source = ../../dotfiles/nvim;
     ".config/tmux".source = ../../dotfiles/tmux;
-    ".ssh/known_hosts".force = true;
-    ".ssh/config".force = true;
+    # Note: SSH config/keys are managed outside Home Manager now
   };
 
   # Configure Zsh with Oh My Zsh and Powerlevel10k theme
@@ -82,19 +81,7 @@
     };
   };
 
-  # SSH managed by Home Manager (config + known_hosts + public key)
-  programs.ssh = {
-    enable = true;
-    enableDefaultConfig = false;
-  };
-  home.file.".ssh/config".source = ../../dotfiles/ssh/config;
-  home.file.".ssh/known_hosts".source = ../../dotfiles/ssh/known_hosts;
-  home.file.".ssh/id_ed25519".source =
-    config.lib.file.mkOutOfStoreSymlink "/etc/nixos/dotfiles/ssh/id_ed25519";
-  home.file.".ssh/id_ed25519.pub".source = ../../dotfiles/ssh/id_ed25519.pub;
-
-  # Ensure an ssh-agent is available in the session
-  services.ssh-agent.enable = true;
+  # SSH is handled by the system/user directly (not Home Manager)
 
   # Let home-manager manage its own files
   programs.home-manager.enable = true;

@@ -28,10 +28,13 @@ in {
     home.sessionVariables = {
       ILLOGICAL_IMPULSE_VIRTUAL_ENV = "~/.local/state/quickshell/.venv";
       QS_CONFIG_NAME = "ii"; # Default QuickShell configuration directory to run
-    };
       # Ensure QuickShell and other Qt apps use US month/day date formatting
-      home.sessionVariables.LC_TIME = "en_US.UTF-8";
-      home.sessionVariables.LANG = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+      LANG = "en_US.UTF-8";
+      # Cursor theme (set to a sensible default; install a matching cursor package if needed)
+      XCURSOR_THEME = "Adwaita";
+      XCURSOR_SIZE = "24";
+    };
 
     home.packages = with pkgs; [
       inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
