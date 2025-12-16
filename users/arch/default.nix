@@ -23,16 +23,15 @@ in
     # Note: SSH config/keys are managed outside Home Manager now
   };
 
-  # Install helper scripts into the user's local bin
-  home.file.".local/bin/update-quickshell.sh".source = /etc/nixos/scripts/update-quickshell.sh;
-  home.file.".local/bin/update-system.sh".source = /etc/nixos/scripts/update-system.sh;
-
-  # Ensure scripts are installed and executable in the user's local bin
-  home.activation.install-update-scripts.text = ''
-    mkdir -p "$HOME/.local/bin"
-    install -m0755 /etc/nixos/scripts/update-quickshell.sh "$HOME/.local/bin/update-quickshell.sh"
-    install -m0755 /etc/nixos/scripts/update-system.sh "$HOME/.local/bin/update-system.sh"
-  '';
+  # Provide helper scripts in the user's profile (available in $HOME/.nix-profile/bin)
+  home.packages = with pkgs; [
+    (writeScriptBin "update-quickshell" ''#!/usr/bin/env bash
+      exec /etc/nixos/scripts/update-quickshell.sh "$@"
+    '')
+    (writeScriptBin "update-system" ''#!/usr/bin/env bash
+      exec /etc/nixos/scripts/update-system.sh "$@"
+    '')
+  ];
 
   # Configure Zsh with Oh My Zsh and Powerlevel10k theme
   programs.zsh = {
@@ -60,6 +59,8 @@ in
       oc = "opencode";
       claer = "clear";
       rebuild = "cd /etc/nixos && sudo nixos-rebuild switch";
+      update-qs = "/etc/nixos/scripts/update-quickshell.sh";
+      update-system = "/etc/nixos/scripts/update-system.sh";
     };
     oh-my-zsh = {
       enable = true;

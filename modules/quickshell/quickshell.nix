@@ -287,6 +287,8 @@ in {
       kdePackages.qtvirtualkeyboard
       kdePackages.qtwayland
       kdePackages.syntax-highlighting
+      # Monitor control
+      ddcutil
       # Clipboard history for QuickShell
       cliphist
       wl-clipboard

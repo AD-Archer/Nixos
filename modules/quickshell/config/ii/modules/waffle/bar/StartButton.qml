@@ -48,7 +48,7 @@ AppButton {
             {
                 text: Translation.tr("Settings"),
                 action: () => {
-                    Quickshell.execDetached(["qs", "-p", Quickshell.shellPath("settings.qml")]);
+                    Quickshell.execDetached(["env", "-u", "QS_CONFIG_NAME", "qs", "-p", Quickshell.shellPath("settings.qml")]);
                 }
             },
             {
@@ -60,7 +60,7 @@ AppButton {
             {
                 text: Translation.tr("Search"),
                 action: () => {
-                    Quickshell.execDetached(["qs", "-p", Quickshell.shellPath(""), "ipc", "call", "overview", "toggle"]);
+                    Quickshell.execDetached(["qs", "ipc", "call", "overview", "toggle"]);
                 }
             },
         ]

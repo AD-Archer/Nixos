@@ -5,6 +5,8 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
+      # Ensure Home Manager uses the same nixpkgs input (avoid release mismatch warnings)
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";

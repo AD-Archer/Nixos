@@ -99,7 +99,7 @@ RowLayout {
         Layout.bottomMargin: 4
         onClicked: {
             GlobalStates.overviewOpen = false;
-            Quickshell.execDetached(["qs", "-p", Quickshell.shellPath(""), "ipc", "call", "region", "search"]);
+            Quickshell.execDetached(["qs", "ipc", "call", "region", "search"]);
         }
         text: "image_search"
         StyledToolTip {
