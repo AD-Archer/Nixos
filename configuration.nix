@@ -9,6 +9,11 @@
   ./nix.nix
   ]; 
 
+  swapDevices = [ {
+    device = "/var/lib/swapfile";
+    size = 20 * 1024;
+  } ];
+
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -91,7 +96,8 @@ programs.steam = {
       Login = {
         # Let logind handle lid close so the machine actually sleeps,
         # and hypridle can run its before/after sleep hooks reliably.
-        HandleLidSwitch = "suspend";
+        HandlePowerKey = "ignore";
+        HandleLidSwitch = "hibernate";
         HandleLidSwitchExternalPower = "suspend";
         # Common default: do not suspend when docked/closed with external display.
         HandleLidSwitchDocked = "ignore";

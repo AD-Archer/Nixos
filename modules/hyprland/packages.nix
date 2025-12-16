@@ -64,6 +64,9 @@ in
 
     # GNOME keyring (secrets/ssh integration)
     gnome-keyring
+
+    # Cursor theme
+    nordzy-cursor-theme
     ];
   };
 }
