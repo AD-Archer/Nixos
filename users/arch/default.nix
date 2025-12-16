@@ -26,9 +26,13 @@ in
   # Install helper scripts into the user's local bin
   home.file.".local/bin/update-quickshell.sh".source = /etc/nixos/scripts/update-quickshell.sh;
   home.file.".local/bin/update-system.sh".source = /etc/nixos/scripts/update-system.sh;
-  # Ensure scripts are executable when managed by home manager
-  home.file.".local/bin/update-quickshell.sh".mode = "0755";
-  home.file.".local/bin/update-system.sh".mode = "0755";
+
+  # Ensure scripts are installed and executable in the user's local bin
+  home.activation.install-update-scripts.text = ''
+    mkdir -p "$HOME/.local/bin"
+    install -m0755 /etc/nixos/scripts/update-quickshell.sh "$HOME/.local/bin/update-quickshell.sh"
+    install -m0755 /etc/nixos/scripts/update-system.sh "$HOME/.local/bin/update-system.sh"
+  '';
 
   # Configure Zsh with Oh My Zsh and Powerlevel10k theme
   programs.zsh = {
