@@ -23,6 +23,13 @@ in
     # Note: SSH config/keys are managed outside Home Manager now
   };
 
+  # Install helper scripts into the user's local bin
+  home.file.".local/bin/update-quickshell.sh".source = /etc/nixos/scripts/update-quickshell.sh;
+  home.file.".local/bin/update-system.sh".source = /etc/nixos/scripts/update-system.sh;
+  # Ensure scripts are executable when managed by home manager
+  home.file.".local/bin/update-quickshell.sh".mode = "0755";
+  home.file.".local/bin/update-system.sh".mode = "0755";
+
   # Configure Zsh with Oh My Zsh and Powerlevel10k theme
   programs.zsh = {
     enable = true;
