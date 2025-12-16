@@ -1,4 +1,17 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
+
+let
+  quickshellPkg = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  quickshellWrapped = pkgs.symlinkJoin {
+    name = "quickshell-wrapped";
+    paths = [
+      quickshellPkg
+      pkgs.kdePackages.qt5compat
+    ];
+    nativeBuildInputs = [ pkgs.qt6.wrapQtAppsHook ];
+    buildInputs = [ pkgs.kdePackages.qt5compat ];
+  };
+in
 
 {
   config = lib.mkIf config.hyprlandAddon.enable {
@@ -40,6 +53,11 @@
     hyprshot
     # Clipboard manager (copy/paste history)
     copyq
+    # Launcher preference
+    ulauncher
+
+    # Quickshell (bar / shell)
+    quickshellWrapped
 
     # Mail client
     thunderbird

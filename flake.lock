@@ -18,23 +18,6 @@
         "type": "github"
       }
     },
-    "illogical-impulse-dotfiles": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1755087685,
-        "narHash": "sha256-l3U/aTwHGxdZgGfs6m8w8keJMTmngZ/aTV0i/5soZVQ=",
-        "owner": "xBLACKICEx",
-        "repo": "dots-hyprland",
-        "rev": "ef1e161c230a6aef92b981aa9066ce21a255da66",
-        "type": "github"
-      },
-      "original": {
-        "owner": "xBLACKICEx",
-        "ref": "tmp",
-        "repo": "dots-hyprland",
-        "type": "github"
-      }
-    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1754777568,
@@ -68,11 +51,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1763835633,
-        "narHash": "sha256-HzxeGVID5MChuCPESuC0dlQL1/scDKu+MmzoVBJxulM=",
+        "lastModified": 1765779637,
+        "narHash": "sha256-KJ2wa/BLSrTqDjbfyNx70ov/HdgNBCBBSQP3BIzKnv4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "050e09e091117c3d7328c7b2b7b577492c43c134",
+        "rev": "1306659b587dc277866c7b69eb97e5f07864d8c4",
         "type": "github"
       },
       "original": {
@@ -104,7 +87,6 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "illogical-impulse-dotfiles": "illogical-impulse-dotfiles",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_2",
         "quickshell": "quickshell"

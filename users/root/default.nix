@@ -9,6 +9,7 @@
     ".config/kitty".source = ../../dotfiles/kitty;
     ".config/nvim".source = ../../dotfiles/nvim;
     ".config/tmux".source = ../../dotfiles/tmux;
+    ".config/hypr".source = ../../modules/hyprland/configs/xdg/hypr;
   };
 
   # Configure Zsh with Oh My Zsh and Powerlevel10k theme

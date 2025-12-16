@@ -10,7 +10,7 @@ dotfiles/ssh/id_*
 .direnv
 .envrc
 .cache
-
+sources/
 # Editor artifacts
 *.swp
 *.swo

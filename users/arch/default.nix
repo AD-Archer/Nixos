@@ -19,6 +19,7 @@ in
     ".config/kitty".source = ../../dotfiles/kitty;
     ".config/nvim".source = ../../dotfiles/nvim;
     ".config/tmux".source = ../../dotfiles/tmux;
+    ".config/hypr".source = ../../modules/hyprland/configs/xdg/hypr;
     # Note: SSH config/keys are managed outside Home Manager now
   };
 

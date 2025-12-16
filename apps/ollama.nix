@@ -3,7 +3,7 @@
 {
   services.ollama = {
     enable = true;
-    acceleration = null; # auto-detect GPU support (rocm/cuda) or CPU fallback
+    # package = pkgs.ollama; # Options: ollama, ollama-vulkan, ollama-rocm, ollama-cuda, ollama-cpu
     host = "0.0.0.0";
     openFirewall = true;
     loadModels = [

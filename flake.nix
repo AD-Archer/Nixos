@@ -13,10 +13,6 @@
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    illogical-impulse-dotfiles = {
-      url = "github:xBLACKICEx/dots-hyprland?ref=tmp";
-      flake = false;
-    };
   };
 
   outputs = { nixpkgs, home-manager, nix-flatpak, ... }@inputs: {
