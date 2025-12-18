@@ -7,6 +7,7 @@
   ./apps/firewall.nix
   ./modules/hyprland-addon.nix
   ./nix.nix
+  ./modules/display-manager.nix
   ]; 
 
   swapDevices = [ {
@@ -60,9 +61,9 @@ programs.steam = {
 
   system.stateVersion = "25.11";
 
-  services.xserver.enable = true;
-  services.displayManager.gdm.enable = true;
-  services.displayManager.sessionPackages = [ pkgs.hyprland ];
+  # Display manager configuration moved to ./modules/display-manager.nix
+  # See ./modules/display-manager.nix for SDDM/GDM and SDDM theme setup
+  
   # Explicitly enable Hyprland so GDM has a launchable session and the binary is on PATH
   programs.hyprland.enable = true;
   services.desktopManager.gnome.enable = true;
@@ -90,6 +91,11 @@ programs.steam = {
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
   ];
+
+  # SDDM theme, packages, and install script moved to ./modules/display-manager.nix
+  # See ./modules/display-manager.nix for theme and SDDM-related configuration
+  
+
 
   services.logind = {
     settings = {

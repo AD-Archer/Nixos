@@ -8,6 +8,7 @@
     "org.vinegarhq.Sober"
     "com.usebottles.bottles"
     "com.github.tchx84.Flatseal"
+    "com.bitwarden.desktop"
     "org.gimp.GIMP"
     "us.zoom.Zoom"
     "io.gitlab.adhami3310.Impression"

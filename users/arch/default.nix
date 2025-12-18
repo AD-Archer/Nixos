@@ -55,6 +55,7 @@ in
     ];
     shellAliases = {
       ll = "ls -l";
+      bw = "flatpak run --command=bw com.bitwarden.desktop";
       cd = "z"; 
       oc = "opencode";
       claer = "clear";
