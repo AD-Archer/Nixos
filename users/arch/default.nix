@@ -103,7 +103,7 @@ in
   # Rofi launcher configuration
   programs.rofi = {
     enable = true;
-    theme = "rounded-common";
+    theme = "gruvbox-dark";
     extraConfig = {
       modi = "drun,run,window";
       show-icons = true;

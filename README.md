@@ -18,84 +18,91 @@
 
 ## Firewall
 
-### System Security
+### System & Security
 - Firewall enabled (NixOS)
 - SSH PermitRootLogin: no
 - SSH password auth: false
 
-### Remote Access & Networking
-- Allow TCP: 22 (Standard SSH access)
-- Trusted interfaces: tailscale0 (Secure VPN for remote access)
+### Networking & Remote Access
+- Allow TCP: 22 (SSH)
+- Trusted interfaces: tailscale0
 
-### Development & Custom Services
-- Allow TCP: 42000 (Indicates a custom application or development server)
+### Productivity & Device Integration
+- Allow UDP ranges: UDP 1714-1764 (KDE Connect)
 
-### Desktop Productivity & Integration
-- Allow UDP ranges: UDP 1714-1764 (KDE Connect for desktop-mobile integration)
+### Custom Services & Development
+- Allow TCP: 42000
 
 ## System Packages
 
-Here are the NixOS system packages categorized into logical groups:
+### Programming Languages & Runtimes
+- nodejs
+- python3
+- go
+- rustc
+- lua
 
-### Development Tools & Languages
--   gcc
--   dbvisualizer
--   lazygit
--   vimPlugins.nvchad
--   codex
--   nodePackages.vercel
--   code-cursor
--   git
--   neovim
--   pnpm
--   nodejs
--   vscode
--   python3
--   opencode
--   go
--   rustc
--   cargo
--   lua
+### Development Tools
+- gcc
+- dbvisualizer
+- lazygit
+- vimPlugins.nvchad
+- codex
+- nodePackages.vercel
+- code-cursor
+- git
+- neovim
+- pnpm
+- vscode
+- opencode
+- cargo
 
-### Terminal Emulators & Enhancements
--   kitty
--   pokemon-colorscripts
--   fzf
--   tmux
--   bat
+### Utilities
+- wget
+- fastfetch
+- gpaste
+- fzf
+- ulauncher
+- curl
+- btop
+- bat
 
-### System Utilities & Information
--   fastfetch
--   btop
+### Terminals & Shells
+- kitty
+- tmux
 
-### Productivity & Desktop Enhancements
--   gpaste
--   bitwarden-desktop
--   ulauncher
+### Productivity
+- bitwarden-desktop
 
-### Networking & File Transfer
--   wget
--   curl
+### Customization & Fun
+- pokemon-colorscripts
 
 ## Flatpaks
 
-Here's a categorization of the provided Flatpak applications:
-
-### Web Browsers
+### Productivity & Internet
 - app.zen_browser.zen
+- com.bitwarden.desktop
+- org.gnome.Todo
+- io.github.qwersyk.Newelle
 
-### Communication & Social
+### Communication
 - dev.vencord.Vesktop
 - us.zoom.Zoom
 - com.slack.Slack
 
-### Productivity
+### Utilities
+- org.kde.filelight
 - org.vinegarhq.Sober
+- com.usebottles.bottles
+- com.github.tchx84.Flatseal
 - io.gitlab.adhami3310.Impression
-- org.gnome.Todo
-- io.github.qwersyk.Newelle
+- org.gnome.Extensions
+- io.github.pwr_solaar.solaar
+- org.x.Warpinator
+- io.github.giantpinkrobots.flatsweep
+- io.github.realmazharhussain.GdmSettings
 
-### Multimedia & Graphics
+### Multimedia
 - org.gimp.GIMP
 - io.github.mhogomchungu.media-downloader
 - com.obsproject.Studio
@@ -107,43 +114,34 @@ Here's a categorization of the provided Flatpak applications:
 - com.atlauncher.ATLauncher
 - io.github.Foldex.AdwSteamGtk
 
-### Utilities & System Tools
-- org.kde.filelight
-- com.usebottles.bottles
-- com.github.tchx84.Flatseal
-- com.bitwarden.desktop
-- org.gnome.Extensions
-- io.github.pwr_solaar.solaar
-- org.x.Warpinator
-- io.github.giantpinkrobots.flatsweep
-- io.github.realmazharhussain.GdmSettings
-
 ## GNOME Extensions
 
 ### Productivity
-- caffeine
 - clipboard-indicator
+- caffeine
 - ulauncher-toggle
 
-### Utilities & Integration
+### System Utilities & Connectivity
 - appindicator
 - gsconnect
 - sound-output-device-chooser
 
-### Customization & Aesthetics
-- blur-my-shell
-- just-perfection
+### System Customization & Appearance
 - quick-settings-tweaker
+- just-perfection
+- blur-my-shell
 
 ## Ollama Models
 - qwen2.5-coder:3b
 - hf.co/mradermacher/Dolphin3.0-Qwen2.5-0.5B-GGUF:Q8_0
 - hf.co/Qwen/Qwen2.5-Coder-1.5B-Instruct-GGUF:Q4_K_M
 - mxbai-embed-large:latest
+
 ## Daily Changes
 
+
 ### 2025-12-19
-<!-- last_hash:acd3d669cb9b456d4e8838e3d13437c108e88a27 -->
+<!-- last_hash:406c85907f655143b6516c385a4e1d7241b13058 -->
 
 Here are today's NixOS flake changes:
 
@@ -152,3 +150,10 @@ Here are today's NixOS flake changes:
 *   This activity by `ad-archer` ensures the current flake state is preserved as part of ongoing system maintenance.
 
 Highlight: Automated flake configuration backup completed.
+
+
+#### Part 2
+
+Here's an update to your flake log summary:
+
+- Automatic flake backup on 2025-12-20.
