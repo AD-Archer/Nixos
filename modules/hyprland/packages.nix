@@ -37,7 +37,8 @@ in
     pkg-config
     waypaper
     hyprpaper
-    wget
+    
+    
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
     zip
@@ -54,7 +55,7 @@ in
     # Clipboard manager (copy/paste history)
     copyq
     # Launcher preference
-    ulauncher
+    # rofi-themes
 
     # Quickshell (bar / shell)
     quickshellWrapped

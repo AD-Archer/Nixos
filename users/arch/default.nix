@@ -100,6 +100,21 @@ in
     };
   };
 
+  # Rofi launcher configuration
+  programs.rofi = {
+    enable = true;
+    theme = "rounded-common";
+    extraConfig = {
+      modi = "drun,run,window";
+      show-icons = true;
+      display-drun = "Apps";
+      display-run = "Run";
+      display-window = "Window";
+      drun-display-format = "{name}";
+      window-format = "{w} · {c} · {t}";
+    };
+  };
+
   # SSH is handled by the system/user directly (not Home Manager)
 
   # Let home-manager manage its own files

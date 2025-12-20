@@ -9,10 +9,9 @@
     gpaste
     pokemon-colorscripts
     fzf
-    ulauncher
     bitwarden-desktop
     dbvisualizer
-
+    ulauncher
     # Terminal tools
     tmux
     curl
