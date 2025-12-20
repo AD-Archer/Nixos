@@ -7,10 +7,11 @@
     gcc
     fastfetch
     gpaste
-    ulauncher
     pokemon-colorscripts
     fzf
+    ulauncher
     bitwarden-desktop
+    dbvisualizer
 
     # Terminal tools
     tmux
@@ -19,8 +20,6 @@
     bat
     lazygit
     vimPlugins.nvchad
-    zimfw
-    gemini-cli
 
     # Dev
     codex

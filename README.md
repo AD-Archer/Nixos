@@ -18,95 +18,77 @@
 
 ## Firewall
 
-### Security & System Administration
+### Security
 - Firewall enabled (NixOS)
 - SSH PermitRootLogin: no
 - SSH password auth: false
-- Allow TCP: 22 (for secure remote administration)
-- Trusted interfaces: tailscale0 (for secure network extension and remote access management)
 
-### Remote Access & Development
-- Allow TCP: 22 (for general remote access to services and environments)
-- Allow TCP: 42000 (for specific application or development server access)
-- Trusted interfaces: tailscale0 (for secure remote access to development environments or private services)
+### Connectivity & Remote Access
+- Allow TCP: 22
+- Trusted interfaces: tailscale0
 
-### Productivity & Integration
-- Allow UDP ranges: UDP 1714-1764 (for device integration, e.g., KDE Connect)
+### Productivity & Utilities
+- Allow UDP ranges: UDP 1714-1764 (KDE Connect)
+
+### Development & Custom Services
+- Allow TCP: 42000
 
 ## System Packages
 
-Here's a categorization of the NixOS system packages:
+### Development
+- gcc
+- dbvisualizer
+- lazygit
+- vimPlugins.nvchad
+- codex
+- nodePackages.vercel
+- code-cursor
+- git
+- neovim
+- pnpm
+- nodejs
+- vscode
+- python3
+- opencode
+- go
+- rustc
+- cargo
+- lua
 
-### Development Tools
--   gcc
--   lazygit
--   vimPlugins.nvchad
--   gemini-cli
--   codex
--   nodePackages.vercel
--   code-cursor
--   git
--   neovim
--   pnpm
--   nodejs
--   vscode
--   python3
--   opencode
--   go
--   rustc
--   cargo
--   lua
+### Productivity
+- gpaste
+- ulauncher
+- bitwarden-desktop
 
-### Productivity & System Utilities
--   wget
--   gpaste
--   ulauncher
--   bitwarden-desktop
--   curl
--   fastfetch
--   btop
+### Terminal Tools
+- kitty
+- fzf
+- tmux
+- bat
 
-### Terminal & CLI Enhancements
--   kitty
--   fzf
--   tmux
--   bat
--   zimfw
--   pokemon-colorscripts
+### Networking Utilities
+- wget
+- curl
+
+### System Monitoring
+- fastfetch
+- btop
+
+### Customization / Fun
+- pokemon-colorscripts
 
 ## Flatpaks
 
-Here are the Flatpak applications categorized into logical groups:
-
-### Web Browsers
+### Internet & Communication
 - app.zen_browser.zen
-
-### Communication
 - dev.vencord.Vesktop
 - us.zoom.Zoom
 - com.slack.Slack
 
-### Productivity
-- org.gnome.Todo
-- io.github.qwersyk.Newelle
-
-### Multimedia & Graphics
-- org.gimp.GIMP
-- io.gitlab.adhami3310.Impression
-- com.obsproject.Studio
-- io.github.mhogomchungu.media-downloader
-
-### Gaming
-- io.mrarm.mcpelauncher
-- com.mojang.Minecraft
-- com.pokemmo.PokeMMO
-- com.atlauncher.ATLauncher
-- com.usebottles.bottles
-- io.github.Foldex.AdwSteamGtk
-
-### Utilities
+### System Tools & Utilities
 - org.kde.filelight
 - org.vinegarhq.Sober
+- com.usebottles.bottles
 - com.github.tchx84.Flatseal
 - com.bitwarden.desktop
 - org.gnome.Extensions
@@ -115,24 +97,41 @@ Here are the Flatpak applications categorized into logical groups:
 - io.github.giantpinkrobots.flatsweep
 - io.github.realmazharhussain.GdmSettings
 
-## GNOME Extensions
+### Multimedia & Graphics
+- org.gimp.GIMP
+- io.gitlab.adhami3310.Impression
+- io.github.mhogomchungu.media-downloader
+- com.obsproject.Studio
 
-Here's a categorization of the GNOME extensions:
+### Games
+- io.mrarm.mcpelauncher
+- com.mojang.Minecraft
+- com.pokemmo.PokeMMO
+- com.atlauncher.ATLauncher
+- io.github.Foldex.AdwSteamGtk
 
 ### Productivity
--   clipboard-indicator
--   gsconnect
--   caffeine
--   ulauncher-toggle
+- org.gnome.Todo
+- io.github.qwersyk.Newelle
 
-### Utilities & System Enhancements
--   appindicator
--   sound-output-device-chooser
--   quick-settings-tweaker
+## GNOME Extensions
 
-### Customization & Visuals
--   just-perfection
--   blur-my-shell
+### Productivity
+- clipboard-indicator
+- caffeine
+- ulauncher-toggle
+
+### System Utilities
+- appindicator
+- sound-output-device-chooser
+
+### UI Enhancements & Customization
+- quick-settings-tweaker
+- just-perfection
+- blur-my-shell
+
+### Connectivity
+- gsconnect
 
 ## Ollama Models
 - qwen2.5-coder:3b
