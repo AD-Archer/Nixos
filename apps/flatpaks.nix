@@ -2,36 +2,48 @@
 {
   services.flatpak.enable = true;
   services.flatpak.packages = [
+    # Browsers
     "app.zen_browser.zen"
+
+    # Communication
     "dev.vencord.Vesktop"
-    "org.kde.filelight"
-    "org.vinegarhq.Sober"
-    "com.usebottles.bottles"
-    "com.github.tchx84.Flatseal"
-    "com.bitwarden.desktop"
-    "org.gimp.GIMP"
-    "us.zoom.Zoom"
-    "io.gitlab.adhami3310.Impression"
-    "io.mrarm.mcpelauncher"
-    "com.mojang.Minecraft"
-    "org.gnome.Extensions"
     "com.slack.Slack"
-    "io.github.pwr_solaar.solaar"
-    "org.x.Warpinator"
-    "io.github.giantpinkrobots.flatsweep"
-    "io.github.realmazharhussain.GdmSettings"
+
+    # Productivity
+    "com.bitwarden.desktop"
+    "com.getpostman.Postman"
+    "com.obsproject.Studio"
+    "org.onlyoffice.desktopeditors"
+    "org.gimp.GIMP"
+    "io.gitlab.adhami3310.Impression"
     "org.gnome.Todo"
-    "com.pokemmo.PokeMMO"
-    "io.github.mhogomchungu.media-downloader"
-    "com.atlauncher.ATLauncher"
     "io.github.qwersyk.Newelle"
     "io.github.Foldex.AdwSteamGtk"
 
-    #Utils
-    "com.obsproject.Studio"
+    # Gaming
+    "org.vinegarhq.Sober"
+    "com.usebottles.bottles"
+    "io.mrarm.mcpelauncher"
+    "com.mojang.Minecraft"
+    "com.pokemmo.PokeMMO"
+    "com.atlauncher.ATLauncher"
 
+    # Media
+    "dev.fredol.open-tv"
+    "io.github.yuki_iptv.yuki-iptv"
+    "io.github.mhogomchungu.media-downloader"
 
+    # Utilities
+    "org.kde.filelight"
+    "com.github.tchx84.Flatseal"
+    "io.github.giantpinkrobots.flatsweep"
+    "io.github.realmazharhussain.GdmSettings"
+    "org.gnome.Extensions"
+    "io.github.pwr_solaar.solaar"
+    "org.x.Warpinator"
 
+    # Video Conferencing
+    "us.zoom.Zoom"
   ];
   services.flatpak.overrides = {
     "io.github.qwersyk.Newelle" = {
