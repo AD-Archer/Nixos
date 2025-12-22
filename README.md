@@ -18,102 +18,76 @@
 
 ## Firewall
 
-### Security
 - Firewall enabled (NixOS)
+- Allow TCP: 22, 42000
+- Allow UDP ranges: UDP 1714-1764
 - Trusted interfaces: tailscale0
 - SSH PermitRootLogin: no
 - SSH password auth: false
 
-### Development & System Administration
-- Allow TCP: 22 (SSH)
-- Allow TCP: 42000 (Custom application/development port)
-
-### Productivity & Device Integration
-- Allow UDP ranges: UDP 1714-1764 (KDE Connect)
-
 ## System Packages
 
-Here's a categorization of the NixOS system packages:
-
-### Development Tools
--   gcc
--   dbvisualizer
--   lazygit
--   vimPlugins.nvchad
--   codex
--   nodePackages.vercel
--   code-cursor
--   git
--   neovim
--   pnpm
--   nodejs
--   vscode
--   python3
--   opencode
--   go
--   rustc
--   cargo
--   lua
-
-### Terminal & Shell Enhancements
--   kitty
--   fzf
--   Terminal
--   tmux
--   bat
-
-### Utilities
--   wget
--   fastfetch
--   gpaste
--   ulauncher
--   tools
--   curl
--   btop
-
-### Productivity & Security
--   bitwarden-desktop
-
-### Customization & Fun
--   pokemon-colorscripts
+- wget
+- kitty
+- gcc
+- fastfetch
+- gpaste
+- pokemon-colorscripts
+- fzf
+- bitwarden-desktop
+- dbvisualizer
+- ulauncher
+- Terminal
+- tools
+- tmux
+- curl
+- btop
+- bat
+- lazygit
+- vimPlugins.nvchad
+- Dev
+- codex
+- nodePackages.vercel
+- code-cursor
+- git
+- neovim
+- pnpm
+- nodejs
+- vscode
+- python3
+- opencode
+- go
+- rustc
+- cargo
+- lua
 
 ## Flatpaks
 
-### Browsers
+- Browsers
 - app.zen_browser.zen
-
-### Communication
+- Communication
 - dev.vencord.Vesktop
 - com.slack.Slack
-- us.zoom.Zoom
-
-### Development
+- Productivity
 - com.getpostman.Postman
-
-### Productivity
+- com.obsproject.Studio
 - org.onlyoffice.desktopeditors
+- org.gimp.GIMP
+- io.gitlab.adhami3310.Impression
 - org.gnome.Todo
 - io.github.qwersyk.Newelle
-
-### Multimedia
-- com.obsproject.Studio
-- org.gimp.GIMP
-- dev.fredol.open-tv
-- io.github.yuki_iptv.yuki-iptv
-- io.github.mhogomchungu.media-downloader
-
-### Gaming
 - io.github.Foldex.AdwSteamGtk
+- Gaming
 - org.vinegarhq.Sober
 - com.usebottles.bottles
 - io.mrarm.mcpelauncher
 - com.mojang.Minecraft
 - com.pokemmo.PokeMMO
 - com.atlauncher.ATLauncher
-
-### Utilities
-- com.bitwarden.desktop
-- io.gitlab.adhami3310.Impression
+- com.github.appadeia.Taigo
+- Media
+- io.github.mhogomchungu.media-downloader
+- Utilities
 - org.kde.filelight
 - com.github.tchx84.Flatseal
 - io.github.giantpinkrobots.flatsweep
@@ -121,22 +95,40 @@ Here's a categorization of the NixOS system packages:
 - org.gnome.Extensions
 - io.github.pwr_solaar.solaar
 - org.x.Warpinator
+- Video
+- Conferencing
+- us.zoom.Zoom
+- Session
+- Bus
+- Policy.org.freedesktop.Flatpak
+- talk;
+- };
+- };
+- services.flatpak.uninstallUnmanaged
+- true;
+- Removes
+- undeclared
+- apps
+- on
+- rebuild
+- }
 
 ## GNOME Extensions
 
-Here's a categorization of the GNOME extensions:
-
-### System Utilities & Integration
+- Essential
+- extensions
+- (verified
+- names)
 - appindicator
+- clipboard-indicator
 - gsconnect
 - sound-output-device-chooser
-
-### Productivity & Workflow
-- clipboard-indicator
+- Popular
+- productivity
 - caffeine
 - ulauncher-toggle
-
-### Customization & Aesthetics
+- Working
+- alternatives
 - quick-settings-tweaker
 - just-perfection
 - blur-my-shell
@@ -148,6 +140,8 @@ Here's a categorization of the GNOME extensions:
 - mxbai-embed-large:latest
 
 ## Daily Changes
+
+
 
 
 

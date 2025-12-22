@@ -15,6 +15,7 @@
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dms.url = "github:AvengeMedia/DankMaterialShell";
   };
 
   outputs = { nixpkgs, home-manager, nix-flatpak, ... }@inputs: {

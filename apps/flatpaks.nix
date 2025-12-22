@@ -10,7 +10,6 @@
     "com.slack.Slack"
 
     # Productivity
-    "com.bitwarden.desktop"
     "com.getpostman.Postman"
     "com.obsproject.Studio"
     "org.onlyoffice.desktopeditors"
@@ -27,10 +26,10 @@
     "com.mojang.Minecraft"
     "com.pokemmo.PokeMMO"
     "com.atlauncher.ATLauncher"
+    "com.github.appadeia.Taigo"
+
 
     # Media
-    "dev.fredol.open-tv"
-    "io.github.yuki_iptv.yuki-iptv"
     "io.github.mhogomchungu.media-downloader"
 
     # Utilities

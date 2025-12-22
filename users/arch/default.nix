@@ -1,4 +1,4 @@
-{ config, pkgs, osConfig ? {}, ... }:
+{ config, pkgs, lib, osConfig ? {}, inputs, ... }:
 
 let
   hyprAddonEnabled = (osConfig ? hyprlandAddon) && (osConfig.hyprlandAddon.enable or false);
@@ -6,10 +6,48 @@ in
 
 {
   imports = [
-    ../../modules/quickshell/quickshell.nix
+    inputs.dms.homeModules.dank-material-shell
   ];
 
-  quickshell.enable = hyprAddonEnabled;
+  programs.dank-material-shell.enable = true;
+
+  home.sessionVariables = {
+    QS_CONFIG_NAME = "dms";
+
+    # App launchers (rofi drun, etc.) discover apps via .desktop files.
+    # On NixOS these live under /run/current-system/sw/share/applications, which is
+    # only searched if XDG_DATA_DIRS includes /run/current-system/sw/share.
+    XDG_DATA_DIRS = lib.mkDefault (
+      "/run/current-system/sw/share"
+      + ":/etc/profiles/per-user/${config.home.username}/share"
+      + ":/nix/var/nix/profiles/default/share"
+      + ":${config.home.homeDirectory}/.nix-profile/share"
+      + ":/var/lib/flatpak/exports/share"
+      + ":${config.home.homeDirectory}/.local/share/flatpak/exports/share"
+      + ":/usr/local/share:/usr/share"
+    );
+
+    # Some GNOME apps are marked OnlyShowIn=GNOME.
+    XDG_CURRENT_DESKTOP = lib.mkDefault "Hyprland:GNOME";
+    XDG_SESSION_DESKTOP = lib.mkDefault "Hyprland";
+    XDG_SESSION_TYPE = lib.mkDefault "wayland";
+  };
+
+  # Also propagate into the systemd user environment (many GUI launchers/services
+  # are started by systemd --user, not by an interactive shell).
+  systemd.user.sessionVariables = {
+    XDG_DATA_DIRS = config.home.sessionVariables.XDG_DATA_DIRS;
+    XDG_CURRENT_DESKTOP = config.home.sessionVariables.XDG_CURRENT_DESKTOP;
+    XDG_SESSION_DESKTOP = config.home.sessionVariables.XDG_SESSION_DESKTOP;
+    XDG_SESSION_TYPE = config.home.sessionVariables.XDG_SESSION_TYPE;
+  };
+  programs.dank-material-shell.systemd.enable = true;
+
+  # Make `qs` able to find the DMS config by name (`qs -c dms`) via XDG config paths.
+  xdg.configFile."quickshell/dms" = {
+    source = "${inputs.dms.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell}/share/quickshell/dms";
+    recursive = true;
+  };
 
   # Home Manager settings
   home.stateVersion = "25.11"; # Pin to a specific version for stability
@@ -59,6 +97,7 @@ in
       cd = "z"; 
       oc = "opencode";
       claer = "clear";
+      qs = "command qs";
       rebuild = "cd /etc/nixos && sudo nixos-rebuild switch";
       update-qs = "/etc/nixos/scripts/update-quickshell.sh";
       update-system = "/etc/nixos/scripts/update-system.sh";

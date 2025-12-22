@@ -12,6 +12,7 @@
     bitwarden-desktop
     dbvisualizer
     ulauncher
+    linux-wallpaperengine
     # Terminal tools
     tmux
     curl

@@ -78,6 +78,8 @@ programs.steam = {
     # Exclude GNOME apps we prefer not to use under Hyprland
     gnome-calendar
     gnome-maps
+    geary  # GNOME Mail
+    
   ];
 
   # Ensure PAM has a service entry for gnome-keyring so login unlocks the login keyring
